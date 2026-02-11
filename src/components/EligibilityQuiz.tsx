@@ -7,7 +7,7 @@ import { getRandomQuestions } from "@/lib/random";
 const PASS_MARK = 6;
 
 export default function EligibilityPage() {
-  const [questions, setQuestions] = useState<any[]>([]);
+  const [questions, setQuestions] = useState<typeof QUESTION_POOL>([]);
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [score, setScore] = useState<number | null>(null);

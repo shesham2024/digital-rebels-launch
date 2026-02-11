@@ -1,79 +1,91 @@
 import { motion } from "framer-motion";
-import { Flame, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { ArrowRight, Shield, Clock, Award } from "lucide-react";
 
-const CTABanner = () => {
+const guarantees = [
+  { icon: Shield, text: "100% Money-Back Guarantee" },
+  { icon: Clock, text: "Weekend-Friendly Schedule" },
+  { icon: Award, text: "No Prior Experience Needed" },
+];
+
+export function CTA() {
   return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-card to-secondary/20" />
+    <section className="relative overflow-hidden py-24">
+      {/* Background gradient orbs */}
+      <div className="absolute left-1/4 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-3xl" />
+      <div className="absolute right-1/4 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/20 blur-3xl" />
 
-      {/* Animated Lines */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary to-transparent" />
-      </div>
-
-      {/* Content */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center"
+          transition={{ duration: 0.5 }}
         >
-          {/* Icon */}
-          <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="inline-flex p-4 rounded-full bg-primary/20 mb-6"
+          <GlassCard
+            variant="gradient"
+            className="mx-auto max-w-4xl p-12 text-center"
           >
-            <Flame className="w-8 h-8 text-primary" />
-          </motion.div>
+            <motion.h2
+              className="font-display text-4xl font-bold md:text-5xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              Ready to Join the{" "}
+              <span className="gradient-text">Revolution?</span>
+            </motion.h2>
 
-          {/* Headline */}
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            <span className="text-gradient-rebel">Admissions Open</span> —
-            Limited Seats
-          </h2>
+            <motion.p
+              className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              Book your free demo and start your AI journey today.
+              Limited seats available for the upcoming batch.
+            </motion.p>
 
-          {/* Subtext */}
-          <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            Join the next batch of Digital Rebels. Transform your career with
-            AI-powered skills that the industry actually needs.
-          </p>
+            {/* Guarantees */}
+            <motion.div
+              className="my-8 flex flex-wrap justify-center gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              {guarantees.map((guarantee) => (
+                <div
+                  key={guarantee.text}
+                  className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm"
+                >
+                  <guarantee.icon className="h-4 w-4 text-primary" />
+                  <span>{guarantee.text}</span>
+                </div>
+              ))}
+            </motion.div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="rebel" size="xl" className="w-full sm:w-auto">
-              Register Now
-              <ArrowRight className="w-5 h-5" />
-            </Button>
-            <Button variant="cyber-outline" size="xl" className="w-full sm:w-auto">
-              Talk to Counselor
-            </Button>
-          </div>
-
-          {/* Trust Indicators */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent" />
-              No Cost EMI Available
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent" />
-              100% Placement Assistance
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent" />
-              Industry Mentors
-            </span>
-          </div>
+            <motion.div
+              className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <Button variant="aurora" size="xl">
+                Book Free Demo
+                <ArrowRight className="ml-1 h-5 w-5" />
+              </Button>
+              <Button variant="outline" size="xl">
+                Download Curriculum PDF
+              </Button>
+            </motion.div>
+          </GlassCard>
         </motion.div>
       </div>
     </section>
   );
-};
-
-export default CTABanner;
+}

@@ -1,57 +1,92 @@
 import { motion } from "framer-motion";
-import { GraduationCap, Building2, Rocket, X, Check, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+// import { GlassCard } from "@/components/ui/GlassCard";
+import {
+  GraduationCap,
+  Code2,
+  Brain,
+  Rocket,
+  Users,
+  Target,
+  X,
+  Check,
+  Sparkles,
+  Zap,
+  Award,
+} from "lucide-react";
 
-const comparisonCards = [
+const comparisons = [
   {
     title: "Traditional Colleges",
+    label: "The Past",
+    color: "text-muted-foreground",
     icon: GraduationCap,
-    status: "past",
-    color: "muted",
-    bgColor: "bg-red-500/5",
-    borderColor: "border-red-500/10",
-    iconBg: "bg-red-500/10",
-    iconColor: "text-red-300",
-    textColor: "text-red-200",
-    points: [
-      { text: "Outdated curriculum", negative: true },
-      { text: "Theory-heavy approach", negative: true },
-      { text: "No industry exposure", negative: true },
-      { text: "Generic teaching", negative: true },
+    items: [
+      { text: "Outdated curriculum", isNegative: true },
+      { text: "Theory-heavy approach", isNegative: true },
+      { text: "No industry exposure", isNegative: true },
+      { text: "Generic teaching", isNegative: true },
     ],
   },
   {
     title: "Coaching Centers",
-    icon: Building2,
-    status: "shortcuts",
-    color: "muted",
-    bgColor: "bg-yellow-500/5",
-    borderColor: "border-yellow-500/10",
-    iconBg: "bg-yellow-500/10",
-    iconColor: "text-yellow-300",
-    textColor: "text-yellow-200",
-    points: [
-      { text: "Interview-focused only", negative: true },
-      { text: "No real projects", negative: true },
-      { text: "Memorization tactics", negative: true },
-      { text: "AI-ignorant training", negative: true },
+    label: "Shortcuts",
+    color: "text-muted-foreground",
+    icon: Target,
+    items: [
+      { text: "Interview-focused only", isNegative: true },
+      { text: "No real projects", isNegative: true },
+      { text: "Memorization tactics", isNegative: true },
+      { text: "AI-ignorant training", isNegative: true },
     ],
   },
   {
     title: "Digital Rebels",
+    label: "The Future",
+    color: "bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent",
     icon: Rocket,
-    status: "future",
-    color: "primary",
-    bgColor: "bg-gradient-to-br from-primary/8 to-accent/8",
-    borderColor: "border-primary/30",
-    iconBg: "bg-gradient-to-br from-primary/15 to-accent/15",
-    iconColor: "text-primary/90",
-    textColor: "text-primary/80",
-    points: [
-      { text: "AI-first curriculum", negative: false },
-      { text: "Real-world projects", negative: false },
-      { text: "Industry-ready skills", negative: false },
-      { text: "Gen AI integration", negative: false },
+    isHighlighted: true,
+    items: [
+      { text: "AI-first curriculum", isNegative: false },
+      { text: "Real-world projects", isNegative: false },
+      { text: "Industry-ready skills", isNegative: false },
+      { text: "Gen AI integration", isNegative: false },
+    ],
+  },
+];
+
+const programFeatures = [
+  {
+    icon: Code2,
+    title: "Core Stack",
+    description: "Java & Spring Boot, Microservices, Database Design, REST APIs",
+    gradient: "from-blue-500 to-cyan-500",
+    highlights: [
+      "Enterprise-grade architecture patterns",
+      "Performance optimization & scaling",
+      "Angular / React frontend mastery",
+    ],
+  },
+  {
+    icon: Brain,
+    title: "AI Track",
+    badge: "NEW",
+    description: "AI Agents, GenAI APIs, Prompt Engineering",
+    gradient: "from-purple-500 to-pink-500",
+    highlights: [
+      "Build AI-powered applications",
+      "LLM integration patterns",
+      "Production AI deployment",
+    ],
+  },
+  {
+    icon: Users,
+    title: "Mentorship",
+    description: "1:1 sessions with industry experts",
+    gradient: "from-green-500 to-emerald-500",
+    highlights: [
+      "Resume & portfolio building",
+      "Mock interviews with feedback",
+      "Career guidance & networking",
     ],
   },
 ];
@@ -61,367 +96,218 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
     },
   },
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 50 },
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
 
-const WhyDigitalRebels = () => {
-  const handleBookDemo = () => {
-    const contactSection = document.querySelector("#contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
-
+export function WhyDigitalRebels() {
   return (
-    <section id="why-us" className="py-24 relative overflow-hidden">
-      {/* Background Elements - More Subtle */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-primary/3 via-accent/3 to-secondary/3 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-primary/2 rounded-full blur-[80px]" />
-      <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-accent/2 rounded-full blur-[60px]" />
+    <section id="why-us" className="relative py-24 overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-[128px] animate-pulse" />
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-[128px] animate-pulse" />
+      </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container relative z-10 mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          className="mb-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
         >
-          <span className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 text-primary/80 text-sm font-medium uppercase tracking-wider mb-6 border border-primary/20">
-            The Difference
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            Why{" "}
-            <span className="text-gradient-rebel bg-gradient-to-r from-primary/90 via-accent/90 to-secondary/90 bg-clip-text text-transparent">
-              Digital Rebels
-            </span>?
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="flex justify-center mb-4"
+          >
+            <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-pink-500/10">
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <span className="text-sm font-semibold text-purple-300 uppercase tracking-wider">
+                The Difference
+              </span>
+            </div>
+          </motion.div>
+
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+            Why <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Digital Rebels?</span>
           </h2>
-          <p className="text-lg text-muted-foreground/80 max-w-2xl mx-auto">
-            The education system is broken. We're here to fix it with
-            AI-integrated, industry-focused training.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            The education system is broken. We're here to fix it with AI-integrated,
+            industry-focused training that actually works.
           </p>
         </motion.div>
 
         {/* Comparison Cards */}
         <motion.div
+          className="mb-24 grid gap-6 md:grid-cols-3 max-w-6xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-6 lg:gap-8"
         >
-          {comparisonCards.map((card, index) => {
-            const Icon = card.icon;
-            const isRebel = card.color === "primary";
-
-            return (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover={{
-                  scale: isRebel ? 1.02 : 1.01,
-                  transition: { duration: 0.3 }
-                }}
-                className={`relative rounded-xl p-6 lg:p-8 backdrop-blur-sm transition-all duration-300 ${isRebel
-                    ? `${card.bgColor} border ${card.borderColor} shadow-lg shadow-primary/5 hover:shadow-primary/10`
-                    : `${card.bgColor} border ${card.borderColor} hover:border-opacity-60`
-                  }`}
+          {comparisons.map((comparison, index) => (
+            <motion.div
+              key={comparison.title}
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div
+                className={`
+                  h-full p-6 rounded-2xl glass backdrop-blur-md transition-all duration-300
+                  ${comparison.isHighlighted
+                    ? "border-2 border-purple-500/50 bg-gradient-to-br from-purple-500/10 via-pink-500/5 to-purple-500/10 shadow-2xl shadow-purple-500/20"
+                    : "border border-border/50 bg-white/5 hover:border-border/70"
+                  }
+                `}
               >
-                {/* Status Badge - More Subtle */}
-                <div
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider mb-6 backdrop-blur-sm ${isRebel
-                      ? "bg-gradient-to-r from-primary/15 to-accent/15 text-primary/80 border border-primary/25"
-                      : card.title.includes("Traditional")
-                        ? "bg-red-500/10 text-red-300/80 border border-red-500/20"
-                        : "bg-yellow-500/10 text-yellow-300/80 border border-yellow-500/20"
-                    }`}
-                >
-                  {card.status === "past" && "The Past"}
-                  {card.status === "shortcuts" && "Shortcuts"}
-                  {card.status === "future" && "The Future"}
-                </div>
-
-                {/* Icon & Title */}
-                <div className="flex items-center gap-4 mb-8">
+                <div className="mb-6 flex items-center gap-3">
                   <div
-                    className={`p-4 rounded-xl ${card.iconBg} backdrop-blur-sm border ${isRebel ? "border-primary/20" : card.borderColor
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl shadow-lg ${comparison.isHighlighted
+                        ? "bg-gradient-to-r from-purple-500 to-pink-500"
+                        : "bg-gradient-to-r from-gray-600 to-gray-700"
                       }`}
                   >
-                    <Icon className={`w-7 h-7 ${card.iconColor}`} />
+                    <comparison.icon className="h-6 w-6 text-white" />
                   </div>
-                  <h3
-                    className={`font-display text-xl lg:text-2xl font-bold ${isRebel ? "text-foreground/90" : "text-muted-foreground/80"
-                      }`}
-                  >
-                    {card.title}
-                  </h3>
+                  <div>
+                    <p className={`text-xs font-semibold uppercase tracking-wider mb-1 ${comparison.isHighlighted ? "text-purple-300" : "text-muted-foreground"
+                      }`}>
+                      {comparison.label}
+                    </p>
+                    <h3 className={`font-display text-xl font-bold ${comparison.isHighlighted ? comparison.color : "text-foreground"
+                      }`}>
+                      {comparison.title}
+                    </h3>
+                  </div>
                 </div>
 
-                {/* Points - Reduced Contrast */}
                 <ul className="space-y-4">
-                  {card.points.map((point, pointIndex) => (
-                    <li key={pointIndex} className="flex items-center gap-3">
-                      {point.negative ? (
-                        <div className="p-1 rounded-full bg-red-500/10">
-                          <X className="w-4 h-4 text-red-400/70 flex-shrink-0" />
-                        </div>
-                      ) : (
-                        <div className="p-1 rounded-full bg-accent/10">
-                          <Check className="w-4 h-4 text-accent/80 flex-shrink-0" />
-                        </div>
-                      )}
-                      <span
-                        className={`text-sm lg:text-base ${point.negative
-                            ? "text-muted-foreground/70"
-                            : "text-foreground/80 font-medium"
-                          }`}
-                      >
-                        {point.text}
+                  {comparison.items.map((item, itemIndex) => (
+                    <motion.li
+                      key={item.text}
+                      className="flex items-center gap-3 text-sm"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: itemIndex * 0.1 }}
+                    >
+                      <div className={`flex-shrink-0 p-1 rounded-full ${item.isNegative ? "bg-red-500/20" : "bg-green-500/20"
+                        }`}>
+                        {item.isNegative ? (
+                          <X className="h-3 w-3 text-red-400" />
+                        ) : (
+                          <Check className="h-3 w-3 text-green-400" />
+                        )}
+                      </div>
+                      <span className={item.isNegative ? "text-muted-foreground" : "text-foreground font-medium"}>
+                        {item.text}
                       </span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-
-                {/* Decorative Elements - More Subtle */}
-                {isRebel && (
-                  <>
-                    {/* Corner Badge - Reduced Opacity */}
-                    <div className="absolute -top-px -right-px w-24 h-24 overflow-hidden rounded-tr-xl">
-                      <div className="absolute top-0 right-0 w-[141%] h-6 bg-gradient-to-r from-primary/40 via-accent/40 to-secondary/40 transform rotate-45 translate-x-6 -translate-y-2" />
-                    </div>
-
-                    {/* Subtle Glow Effect */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/3 to-accent/3 blur-xl -z-10" />
-                  </>
-                )}
-
-                {/* Very Subtle Hover Effect for Non-Rebel Cards */}
-                {!isRebel && (
-                  <div className="absolute inset-0 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-white/2 to-transparent pointer-events-none" />
-                )}
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
 
-        {/* Bottom CTA Section - Now a Button */}
+        {/* Program Features Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
+          transition={{ duration: 0.6 }}
         >
-          <Button
-            variant="rebel"
-            size="xl"
-            className="cursor-pointer group"
-            onClick={handleBookDemo}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="flex justify-center mb-4"
           >
-            <span className="mr-2">Ready to join the revolution?</span>
-            <div className="w-2 h-2 bg-accent rounded-full animate-pulse mr-2" />
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-          </Button>
+            <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-cyan-500/10">
+              <Zap className="w-4 h-4 text-blue-400" />
+              <span className="text-sm font-semibold text-blue-300 uppercase tracking-wider">
+                Our Program
+              </span>
+            </div>
+          </motion.div>
 
-          {/* Optional: Add a subtitle below the button */}
-          <p className="text-sm text-muted-foreground/60 mt-4">
-            Book your free demo and start your AI journey today
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+            Java Full Stack with <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Gen AI</span>
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Master the complete stack from backend to AI integration. Build real-world
+            applications that matter in today's market.
           </p>
+        </motion.div>
+
+        {/* Program Features Cards */}
+        <motion.div
+          className="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {programFeatures.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="h-full p-6 rounded-2xl glass backdrop-blur-md bg-white/5 border border-border/50 hover:border-purple-500/30 transition-all duration-300 group">
+                <div className="mb-6 flex items-center gap-3">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r ${feature.gradient} shadow-lg group-hover:shadow-xl transition-all duration-300`}>
+                    <feature.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-display text-xl font-bold text-foreground">
+                        {feature.title}
+                      </h3>
+                      {feature.badge && (
+                        <span className="px-2 py-1 text-xs font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full">
+                          {feature.badge}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  {feature.description}
+                </p>
+
+                <ul className="space-y-3">
+                  {feature.highlights.map((highlight, highlightIndex) => (
+                    <motion.li
+                      key={highlight}
+                      className="flex items-start gap-3 text-sm"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: highlightIndex * 0.1 }}
+                    >
+                      <div className={`mt-1 h-2 w-2 rounded-full bg-gradient-to-r ${feature.gradient} flex-shrink-0`} />
+                      <span className="text-foreground font-medium leading-relaxed">{highlight}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
   );
-};
-
-export default WhyDigitalRebels;
-// import { motion } from "framer-motion";
-// import { GraduationCap, Building2, Rocket, X, Check } from "lucide-react";
-
-// const comparisonCards = [
-//   {
-//     title: "Traditional Colleges",
-//     icon: GraduationCap,
-//     status: "past",
-//     color: "muted",
-//     points: [
-//       { text: "Outdated curriculum", negative: true },
-//       { text: "Theory-heavy approach", negative: true },
-//       { text: "No industry exposure", negative: true },
-//       { text: "Generic teaching", negative: true },
-//     ],
-//   },
-//   {
-//     title: "Coaching Centers",
-//     icon: Building2,
-//     status: "shortcuts",
-//     color: "muted",
-//     points: [
-//       { text: "Interview-focused only", negative: true },
-//       { text: "No real projects", negative: true },
-//       { text: "Memorization tactics", negative: true },
-//       { text: "AI-ignorant training", negative: true },
-//     ],
-//   },
-//   {
-//     title: "Digital Rebels",
-//     icon: Rocket,
-//     status: "future",
-//     color: "primary",
-//     points: [
-//       { text: "AI-first curriculum", negative: false },
-//       { text: "Real-world projects", negative: false },
-//       { text: "Industry-ready skills", negative: false },
-//       { text: "Gen AI integration", negative: false },
-//     ],
-//   },
-// ];
-
-// const containerVariants = {
-//   hidden: { opacity: 0 },
-//   visible: {
-//     opacity: 1,
-//     transition: {
-//       staggerChildren: 0.2,
-//     },
-//   },
-// };
-
-// const cardVariants = {
-//   hidden: { opacity: 0, y: 50 },
-//   visible: { opacity: 1, y: 0 },
-// };
-
-// const WhyDigitalRebels = () => {
-//   return (
-//     <section id="why-us" className="py-24 relative overflow-hidden">
-//       {/* Background Elements */}
-//       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
-
-//       <div className="container mx-auto px-4 relative z-10">
-//         {/* Section Header */}
-//         <motion.div
-//           initial={{ opacity: 0, y: 30 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 0.6 }}
-//           className="text-center mb-16"
-//         >
-//           <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium uppercase tracking-wider mb-4">
-//             The Difference
-//           </span>
-//           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-//             Why{" "}
-//             <span className="text-gradient-rebel">Digital Rebels</span>?
-//           </h2>
-//           <p className="text-muted-foreground max-w-2xl mx-auto">
-//             The education system is broken. We're here to fix it with
-//             AI-integrated, industry-focused training.
-//           </p>
-//         </motion.div>
-
-//         {/* Comparison Cards */}
-//         <motion.div
-//           variants={containerVariants}
-//           initial="hidden"
-//           whileInView="visible"
-//           viewport={{ once: true }}
-//           className="grid md:grid-cols-3 gap-6 lg:gap-8"
-//         >
-//           {comparisonCards.map((card, index) => {
-//             const Icon = card.icon;
-//             const isRebel = card.color === "primary";
-
-//             return (
-//               <motion.div
-//                 key={index}
-//                 variants={cardVariants}
-//                 className={`relative rounded-xl p-6 lg:p-8 ${
-//                   isRebel
-//                     ? "bg-card border-2 border-primary glow-orange"
-//                     : "bg-card/50 border border-border"
-//                 } card-rebel`}
-//               >
-//                 {/* Status Badge */}
-//                 <div
-//                   className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider mb-6 ${
-//                     isRebel
-//                       ? "bg-primary/20 text-primary"
-//                       : "bg-muted text-muted-foreground"
-//                   }`}
-//                 >
-//                   {card.status === "past" && "= The Past"}
-//                   {card.status === "shortcuts" && "= Shortcuts"}
-//                   {card.status === "future" && "= The Future"}
-//                 </div>
-
-//                 {/* Icon & Title */}
-//                 <div className="flex items-center gap-4 mb-6">
-//                   <div
-//                     className={`p-3 rounded-lg ${
-//                       isRebel ? "bg-primary/20" : "bg-muted"
-//                     }`}
-//                   >
-//                     <Icon
-//                       className={`w-6 h-6 ${
-//                         isRebel ? "text-primary" : "text-muted-foreground"
-//                       }`}
-//                     />
-//                   </div>
-//                   <h3
-//                     className={`font-display text-xl font-bold ${
-//                       isRebel ? "text-foreground" : "text-muted-foreground"
-//                     }`}
-//                   >
-//                     {card.title}
-//                   </h3>
-//                 </div>
-
-//                 {/* Points */}
-//                 <ul className="space-y-3">
-//                   {card.points.map((point, pointIndex) => (
-//                     <li key={pointIndex} className="flex items-center gap-3">
-//                       {point.negative ? (
-//                         <X className="w-5 h-5 text-destructive flex-shrink-0" />
-//                       ) : (
-//                         <Check className="w-5 h-5 text-accent flex-shrink-0" />
-//                       )}
-//                       <span
-//                         className={
-//                           point.negative
-//                             ? "text-muted-foreground"
-//                             : "text-foreground"
-//                         }
-//                       >
-//                         {point.text}
-//                       </span>
-//                     </li>
-//                   ))}
-//                 </ul>
-
-//                 {/* Decorative Element for Rebel Card */}
-//                 {isRebel && (
-//                   <div className="absolute -top-px -right-px w-20 h-20 overflow-hidden rounded-tr-xl">
-//                     <div className="absolute top-0 right-0 w-[141%] h-4 bg-gradient-to-r from-primary to-accent transform rotate-45 translate-x-4 -translate-y-1" />
-//                   </div>
-//                 )}
-//               </motion.div>
-//             );
-//           })}
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default WhyDigitalRebels;
+}

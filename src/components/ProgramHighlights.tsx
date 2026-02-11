@@ -1,196 +1,260 @@
 import { motion } from "framer-motion";
+import { GlassCard } from "@/components/ui/GlassCard";
 import {
+  GraduationCap,
   Code2,
-  Database,
-  Cloud,
-  Bot,
-  Sparkles,
-  MessageSquare,
-  Layers,
-  Cpu,
+  Brain,
+  Rocket,
+  Users,
+  Target,
+  X,
+  Check,
 } from "lucide-react";
 
-const coreStack = [
-  { icon: Code2, label: "Java & Spring Boot" },
-  { icon: Layers, label: "Microservices" },
-  { icon: Database, label: "Database Design" },
-  { icon: Cloud, label: "REST APIs" },
+const comparisons = [
+  {
+    title: "Traditional Colleges",
+    label: "The Past",
+    color: "text-muted-foreground",
+    icon: GraduationCap,
+    items: [
+      { text: "Outdated curriculum", isNegative: true },
+      { text: "Theory-heavy approach", isNegative: true },
+      { text: "No industry exposure", isNegative: true },
+      { text: "Generic teaching", isNegative: true },
+    ],
+  },
+  {
+    title: "Coaching Centers",
+    label: "Shortcuts",
+    color: "text-muted-foreground",
+    icon: Target,
+    items: [
+      { text: "Interview-focused only", isNegative: true },
+      { text: "No real projects", isNegative: true },
+      { text: "Memorization tactics", isNegative: true },
+      { text: "AI-ignorant training", isNegative: true },
+    ],
+  },
+  {
+    title: "Digital Rebels",
+    label: "The Future",
+    color: "text-primary",
+    icon: Rocket,
+    isHighlighted: true,
+    items: [
+      { text: "AI-first curriculum", isNegative: false },
+      { text: "Real-world projects", isNegative: false },
+      { text: "Industry-ready skills", isNegative: false },
+      { text: "Gen AI integration", isNegative: false },
+    ],
+  },
 ];
 
-const aiTrack = [
-  { icon: Bot, label: "AI Agents" },
-  { icon: Sparkles, label: "GenAI APIs" },
-  { icon: MessageSquare, label: "Prompt Engineering" },
-  { icon: Cpu, label: "AI Web Apps" },
+const programFeatures = [
+  {
+    icon: Code2,
+    title: "Core Stack",
+    description: "Java & Spring Boot, Microservices, Database Design, REST APIs",
+    highlights: [
+      "Enterprise-grade architecture patterns",
+      "Performance optimization & scaling",
+      "Angular / React frontend mastery",
+    ],
+  },
+  {
+    icon: Brain,
+    title: "AI Track",
+    badge: "NEW",
+    description: "AI Agents, GenAI APIs, Prompt Engineering",
+    highlights: [
+      "Build AI-powered applications",
+      "LLM integration patterns",
+      "Production AI deployment",
+    ],
+  },
+  {
+    icon: Users,
+    title: "Mentorship",
+    description: "1:1 sessions with industry experts",
+    highlights: [
+      "Resume & portfolio building",
+      "Mock interviews with feedback",
+      "Career guidance & networking",
+    ],
+  },
 ];
 
-const ProgramHighlights = () => {
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+export function ProgramHighlights() {
   return (
-    <section id="program" className="py-24 bg-card/30 relative overflow-hidden">
-      {/* Grid Background */}
-      <div className="absolute inset-0 cyber-grid opacity-20" />
+    <section className="relative py-24">
+      {/* Background accents */}
+      <div className="absolute left-0 top-1/4 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
+      <div className="absolute right-0 bottom-1/4 h-96 w-96 rounded-full bg-secondary/5 blur-3xl" />
 
-      {/* Gradient Orbs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[150px]" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px]" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
+      <div className="container relative z-10">
+        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          className="mb-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1 rounded-full bg-secondary/10 text-secondary text-sm font-medium uppercase tracking-wider mb-4">
-            Our Program
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Java Full Stack with{" "}
-            <span className="text-gradient-cyber">Gen AI</span>
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
+            The Difference
+          </p>
+          <h2 className="font-display text-4xl font-bold md:text-5xl">
+            Why <span className="gradient-text">Digital Rebels?</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Master the complete stack from backend to AI integration. Build
-            real-world applications that matter.
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            The education system is broken. We're here to fix it with AI-integrated,
+            industry-focused training.
           </p>
         </motion.div>
 
-        {/* Two Column Layout */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Core Stack */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-card rounded-2xl p-8 border border-border"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-primary/20">
-                <Code2 className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-display text-2xl font-bold">Core Stack</h3>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {coreStack.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex items-center gap-3 p-4 rounded-lg bg-muted/50 border border-border hover:border-primary/50 transition-colors"
-                  >
-                    <Icon className="w-5 h-5 text-primary" />
-                    <span className="font-medium">{item.label}</span>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            <ul className="mt-6 space-y-2 text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <span className="text-primary">→</span>
-                Enterprise-grade architecture patterns
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">→</span>
-                Performance optimization & scaling
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">→</span>
-                Angular / React frontend mastery
-              </li>
-            </ul>
-          </motion.div>
-
-          {/* AI Track */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-card rounded-2xl p-8 border border-secondary/50 relative overflow-hidden"
-          >
-            {/* Glow Effect */}
-            <div className="absolute -top-20 -right-20 w-40 h-40 bg-secondary/20 rounded-full blur-[60px]" />
-
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-secondary/20">
-                  <Bot className="w-6 h-6 text-secondary" />
-                </div>
-                <h3 className="font-display text-2xl font-bold">AI Track</h3>
-                <span className="px-2 py-0.5 rounded-full bg-secondary/20 text-secondary text-xs font-medium">
-                  NEW
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                {aiTrack.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      className="flex items-center gap-3 p-4 rounded-lg bg-secondary/10 border border-secondary/30 hover:border-secondary transition-colors"
-                    >
-                      <Icon className="w-5 h-5 text-secondary" />
-                      <span className="font-medium">{item.label}</span>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              <ul className="mt-6 space-y-2 text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-secondary">→</span>
-                  Build AI-powered applications
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-secondary">→</span>
-                  LLM integration & fine-tuning
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-secondary">→</span>
-                  AI-first development mindset
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Class Schedule */}
+        {/* Comparison cards */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          className="mb-24 grid gap-6 md:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {comparisons.map((comparison) => (
+            <motion.div key={comparison.title} variants={itemVariants}>
+              <GlassCard
+                className={`h-full ${comparison.isHighlighted ? "border-gradient" : ""
+                  }`}
+                whileHover={{ y: -5 }}
+              >
+                <div className="mb-4 flex items-center gap-3">
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-lg ${comparison.isHighlighted
+                        ? "gradient-aurora"
+                        : "bg-muted"
+                      }`}
+                  >
+                    <comparison.icon
+                      className={`h-5 w-5 ${comparison.isHighlighted ? "text-white" : "text-muted-foreground"
+                        }`}
+                    />
+                  </div>
+                  <div>
+                    <p className={`text-xs font-semibold uppercase tracking-wider ${comparison.color}`}>
+                      {comparison.label}
+                    </p>
+                    <h3 className="font-display text-lg font-semibold">
+                      {comparison.title}
+                    </h3>
+                  </div>
+                </div>
+                <ul className="space-y-3">
+                  {comparison.items.map((item) => (
+                    <li key={item.text} className="flex items-center gap-2 text-sm">
+                      {item.isNegative ? (
+                        <X className="h-4 w-4 text-destructive/70" />
+                      ) : (
+                        <Check className="h-4 w-4 text-primary" />
+                      )}
+                      <span
+                        className={
+                          item.isNegative ? "text-muted-foreground" : "text-foreground"
+                        }
+                      >
+                        {item.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </GlassCard>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Program features */}
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-12 grid md:grid-cols-2 gap-6"
         >
-          <div className="bg-muted/30 rounded-xl p-6 border border-border">
-            <h4 className="font-display font-semibold mb-2">Mon – Fri</h4>
-            <p className="text-muted-foreground">
-              Live Online Classes — Core Stack & Projects
-            </p>
-          </div>
-          <div className="bg-muted/30 rounded-xl p-6 border border-border">
-            <h4 className="font-display font-semibold mb-2">Sat – Sun</h4>
-            <p className="text-muted-foreground">
-              AI Deep Dives & Career Development Sessions
-            </p>
-          </div>
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-secondary">
+            Our Program
+          </p>
+          <h2 className="font-display text-4xl font-bold md:text-5xl">
+            Java Full Stack with <span className="gradient-text">Gen AI</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            Master the complete stack from backend to AI integration. Build real-world
+            applications that matter.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="mt-12 grid gap-6 md:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {programFeatures.map((feature) => (
+            <motion.div key={feature.title} variants={itemVariants}>
+              <GlassCard
+                className="h-full"
+                variant="gradient"
+                whileHover={{ y: -5 }}
+              >
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-aurora">
+                    <feature.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-display text-xl font-semibold">
+                        {feature.title}
+                      </h3>
+                      {feature.badge && (
+                        <span className="rounded-full bg-accent px-2 py-0.5 text-xs font-semibold text-accent-foreground">
+                          {feature.badge}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  {feature.description}
+                </p>
+                <ul className="space-y-2">
+                  {feature.highlights.map((highlight) => (
+                    <li
+                      key={highlight}
+                      className="flex items-center gap-2 text-sm"
+                    >
+                      <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </GlassCard>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
   );
-};
-
-export default ProgramHighlights;
+}

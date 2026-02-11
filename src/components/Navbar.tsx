@@ -1,236 +1,176 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.jpeg";
+import { Menu, X } from "lucide-react";
+import invokelogo from "../assets/invokelogo.png";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Program", href: "#program" },
-  { name: "Why Us", href: "#why-us" },
-  { name: "Who Should Join", href: "#who-should-join" },
-  { name: "Contact", href: "#contact" },
-  { name: "FAQs", href: "#faq" },
+  { label: "Home", href: "#" },
+  { label: "Program", href: "#program" },
+  { label: "Why Us", href: "#why-us" },
+  { label: "Testimonials", href: "#testimonials" },
+  { label: "FAQs", href: "#faqs" },
 ];
 
-const Navbar = () => {
+export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleNavClick = (href: string) => {
-    setIsOpen(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
 
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
-
-  const handleBookDemo = () => {
-    setIsOpen(false); 
-    const contactSection = document.querySelector("#contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.nav
+    <motion.header
+      className="sticky top-0 z-50 w-full"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <a
-            href="#home"
-            className="flex items-center gap-3"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick("#home");
-            }}
-          >
-            <img src={logo} alt="Digital Rebels" className="h-20 md:h-20 w-auto" />
-          </a>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(link.href);
-                }}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-300 uppercase tracking-wider cursor-pointer"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-
-          {/* CTA Button - Desktop */}
-          <div className="hidden md:block">
-            <Button
-              variant="rebel"
-              size="lg"
-              onClick={handleBookDemo}
-              className="cursor-pointer"
+      <div className={`transition-all duration-300 ${isScrolled ? 'px-2 pt-2' : 'px-2 pt-4'}`}>
+        <nav
+          className={`
+            glass mx-auto rounded-2xl px-8 transition-all duration-300
+            ${isScrolled
+              ? 'py-2 backdrop-blur-xl bg-background/80 shadow-lg'
+              : 'py-4 backdrop-blur-md bg-background/60'
+            }
+          `}
+        >
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <motion.a
+              href="#"
+              className="flex items-center gap-4 flex-shrink-0"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Book Free Demo
-            </Button>
+              <div className={`flex items-center justify-center overflow-hidden transition-all duration-300 flex-shrink-0 ${isScrolled ? 'h-20 w-20' : 'h-24 w-24'
+                }`}>
+                <img
+                  src={invokelogo}
+                  alt="Digital Rebels Logo"
+                  className="h-full w-full object-contain"
+                />
+              </div>
+            
+            </motion.a>
+
+            {/* Desktop Nav */}
+            <div className="hidden items-center gap-12 md:flex flex-1 justify-center">
+              {navLinks.map((link, index) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground group whitespace-nowrap"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -2 }}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 group-hover:w-full"></span>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* CTA Button */}
+            <div className="hidden md:block flex-shrink-0">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button variant="aurora" size="default" className="shadow-lg">
+                  Book Free Demo
+                </Button>
+              </motion.div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              className="md:hidden p-2 rounded-lg hover:bg-muted/50 transition-colors flex-shrink-0"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+              whileTap={{ scale: 0.95 }}
+            >
+              <AnimatePresence mode="wait">
+                {isOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="h-6 w-6" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu className="h-6 w-6" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
+          {/* Mobile Menu */}
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden md:hidden"
+              >
+                <motion.div
+                  className="flex flex-col gap-4 pt-6 border-t border-border/20 mt-4"
+                  initial={{ y: -20 }}
+                  animate={{ y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  {navLinks.map((link, index) => (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground py-2 px-3 rounded-lg hover:bg-muted/30"
+                      onClick={() => setIsOpen(false)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 + 0.2 }}
+                    >
+                      {link.label}
+                    </motion.a>
+                  ))}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    <Button variant="aurora" className="w-full shadow-lg">
+                      Book Free Demo
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </nav>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-card border-b border-border"
-          >
-            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2 uppercase tracking-wider cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                >
-                  {link.name}
-                </a>
-              ))}
-              {/* CTA Button - Mobile */}
-              <Button
-                variant="rebel"
-                className="w-full mt-2 cursor-pointer"
-                onClick={handleBookDemo}
-              >
-                Book Free Demo
-              </Button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {/* Add some spacing below the sticky navbar */}
+      <div className={`transition-all duration-300 ${isScrolled ? 'pb-2' : 'pb-0'}`} />
+    </motion.header>
   );
-};
-
-export default Navbar;
-// import { useState } from "react";
-// import { motion, AnimatePresence } from "framer-motion";
-// import { Menu, X } from "lucide-react";
-// import { Button } from "@/components/ui/button";
-// import logo from "@/assets/logo.png";
-
-// const navLinks = [
-//   { name: "Home", href: "#home" },
-//   { name: "Program", href: "#program" },
-//   { name: "Why Us", href: "#why-us" },
-//   { name: "Who Should Join", href: "#who-should-join" },
-//   { name: "Contact", href: "#contact" },
-
-// ];
-
-// const Navbar = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   return (
-//     <motion.nav
-//       initial={{ y: -100 }}
-//       animate={{ y: 0 }}
-//       transition={{ duration: 0.5 }}
-//       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border"
-//     >
-//       <div className="container mx-auto px-4">
-//         <div className="flex items-center justify-between h-16 md:h-20">
-//           {/* Logo */}
-//           <a href="#home" className="flex items-center gap-3">
-//             <img src={logo} alt="Digital Rebels" className="h-20 md:h-20 w-auto" />
-//           </a>
-
-//           {/* Desktop Navigation */}
-//           <div className="hidden md:flex items-center gap-8">
-//             {navLinks.map((link) => (
-//               <a
-//                 key={link.name}
-//                 href={link.href}
-//                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-300 uppercase tracking-wider"
-//               >
-//                 {link.name}
-//               </a>
-//             ))}
-//           </div>
-
-//           {/* CTA Button */}
-//         <a href="#contact">
-//           <div className="hidden md:block">
-//             <Button variant="rebel" size="lg">
-//               Book Free Demo
-//             </Button>
-//           </div>
-//         </a>
-//           {/* Mobile Menu Button */}
-//           <button
-//             className="md:hidden p-2 text-foreground"
-//             onClick={() => setIsOpen(!isOpen)}
-//           >
-//             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Mobile Menu */}
-//       <AnimatePresence>
-//         {isOpen && (
-//           <motion.div
-//             initial={{ opacity: 0, height: 0 }}
-//             animate={{ opacity: 1, height: "auto" }}
-//             exit={{ opacity: 0, height: 0 }}
-//             className="md:hidden bg-card border-b border-border"
-//           >
-//             <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-//               {navLinks.map((link) => (
-//                 <a
-//                   key={link.name}
-//                   href={link.href}
-//                   className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2 uppercase tracking-wider"
-//                   onClick={() => setIsOpen(false)}
-//                 >
-//                   {link.name}
-//                 </a>
-//               ))}
-//               <Button variant="rebel" className="w-full mt-2">
-//                 Book Free Demo
-//               </Button>
-//             </div>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//     </motion.nav>
-//   );
-// };
-
-// export default Navbar;
+}
