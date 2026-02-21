@@ -13,6 +13,7 @@ import { FAQ } from "@/components/FAQ";
 import { FreeTrial } from "@/components/FreeTrail";
 import Founder from "@/components/Founder";
 import { Testimonials } from "@/components/Testimonials";
+import { ProgramHighlights } from "@/components/ProgramHighlights";
 
 const Index = () => {
   return (
@@ -20,7 +21,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <WhyDigitalRebels />
-      {/* <ProgramHighlights /> */}
+      <ProgramHighlights />
       <AISurvivalQuote />
       <BeyondCoding />
       <WhoShouldJoin />

@@ -15,7 +15,7 @@ const HeroSection = () => {
   };
 
   const handleJoinMovement = () => {
-    const pdfUrl = '/curriculum.pdf';
+    const pdfUrl = '/JavaDeveloperRoadmap.pdf';
     const downloadLink = document.createElement('a');
     downloadLink.href = pdfUrl;
     downloadLink.download = 'Digital-Rebels-Java-Curriculum.pdf';
@@ -32,7 +32,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-36 lg:pt-40"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
@@ -41,6 +41,9 @@ const HeroSection = () => {
         <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-[128px] animate-pulse" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-[200px]" />
       </div>
+
+      {/* Spacer div to ensure proper spacing from fixed navbar */}
+      <div className="absolute top-0 left-0 right-0 h-24 md:h-28 lg:h-32 pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto text-center">

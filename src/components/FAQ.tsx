@@ -96,6 +96,32 @@ const containerVariants = {
     },
 };
 
+// Add this function at the top of your component (inside the FAQ function):
+const handleCallClick = () => {
+    const phoneNumber = "+919390829318"; // Replace with your actual phone number
+
+    // Check if it's a mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        // On mobile, open dialer
+        window.location.href = `tel:${phoneNumber}`;
+    } else {
+        // On desktop, you can either:
+        // 1. Still try to open dialer (works if they have calling apps)
+        window.location.href = `tel:${phoneNumber}`;
+
+        // 2. Or show a modal with the phone number
+        // alert(`Call us at: ${phoneNumber}`);
+
+        // 3. Or copy to clipboard
+        // navigator.clipboard.writeText(phoneNumber);
+        // alert('Phone number copied to clipboard!');
+    }
+};
+
+// Then update the button:
+
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -264,6 +290,7 @@ export function FAQ() {
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
+                                onClick={handleCallClick}
                                 className="p-4 rounded-xl glass backdrop-blur-md bg-white/5 border border-border/30 hover:border-blue-500/30 transition-all duration-300 cursor-pointer group"
                             >
                                 <div className="flex items-center gap-3">
@@ -278,6 +305,7 @@ export function FAQ() {
                                     </div>
                                 </div>
                             </motion.div>
+
                         </div>
 
                         {/* Quick Stats */}

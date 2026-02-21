@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import {
   GraduationCap,
   UserCheck,
@@ -81,18 +82,15 @@ const itemVariants = {
 };
 
 export function WhoShouldJoin() {
+  const navigate = useNavigate();
+
   const handleCheckQualification = () => {
-    const contactSection = document.querySelector("#contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    // Navigate to the eligibility quiz page
+    navigate('/eligibilityQuiz');
   };
 
   return (
-    <section className="relative overflow-hidden py-24">
+    <section id="who-should-join" className="relative overflow-hidden py-24">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-full blur-[128px] animate-pulse" />
@@ -219,16 +217,16 @@ export function WhoShouldJoin() {
             </h3>
 
             <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
-              Don't worry! Our program is designed for learners at all levels.
-              Book a free consultation to discuss your background and career goals.
+              Don't worry! Take our quick eligibility quiz to see if you're ready for the AI era.
+              Answer 10 simple questions and get instant feedback on your readiness.
             </p>
 
             {/* Qualification Benefits */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               {[
-                { icon: Zap, text: "Free Career Assessment", color: "from-yellow-400 to-orange-400" },
-                { icon: Users, text: "Personalized Learning Path", color: "from-purple-400 to-pink-400" },
-                { icon: Target, text: "Goal-Oriented Guidance", color: "from-blue-400 to-cyan-400" }
+                { icon: Zap, text: "Quick 10-Question Quiz", color: "from-yellow-400 to-orange-400" },
+                { icon: Users, text: "Instant Results", color: "from-purple-400 to-pink-400" },
+                { icon: Target, text: "Personalized Guidance", color: "from-blue-400 to-cyan-400" }
               ].map((benefit, index) => (
                 <motion.div
                   key={index}

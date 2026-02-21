@@ -189,7 +189,7 @@ const Quiz = () => {
                             Check If You <span className="text-gradient-rebel">Qualify</span>
                         </h1>
                         <p className="text-muted-foreground">
-                            Take our quick assessment to see if you're ready for the Digital Rebels program
+                            Take our quick assessment to see if you're ready for the InvokeIt program
                         </p>
                     </motion.div>
 
@@ -433,7 +433,7 @@ const Quiz = () => {
                             </p>
 
                             <Button variant="rebel" size="lg" className="w-full">
-                                Join Digital Rebels Now
+                                Join Us Now
                             </Button>
                         </Card>
 
@@ -487,7 +487,7 @@ const Quiz = () => {
                                 Questions? Contact us directly:
                             </p>
                             <div className="flex flex-wrap justify-center gap-4 text-sm">
-                                <span>📧 hello@digitalrebels.com</span>
+                                <span>📧 hello@InvokeIt.com</span>
                                 <span>📱 +91 9876543210</span>
                             </div>
                         </div>

@@ -61,6 +61,22 @@ const AISurvivalQuote = () => {
     }
   };
 
+
+  const handleViewCurriculum = () => {
+    const pdfUrl = '/JavaDeveloperRoadmap.pdf';
+    const downloadLink = document.createElement('a');
+    downloadLink.href = pdfUrl;
+    downloadLink.download = 'Digital-Rebels-Java-Curriculum.pdf';
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+
+    setTimeout(() => {
+      window.open(pdfUrl, '_blank');
+    }, 500);
+  };
+
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background Elements */}
@@ -266,6 +282,7 @@ const AISurvivalQuote = () => {
                 className="px-8 py-3 rounded-lg glass border border-border/50 hover:border-purple-500/50 hover:bg-purple-500/10 text-foreground font-medium transition-all duration-300 flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleViewCurriculum}
               >
                 <Code className="w-5 h-5" />
                 View Curriculum

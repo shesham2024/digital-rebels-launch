@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
   Mail,
@@ -14,18 +15,21 @@ import {
   Users,
   Award,
   Zap,
-  ExternalLink
+  ExternalLink,
+  CheckCircle,
+  AlertCircle,
+  Loader2
 } from "lucide-react";
 
 const footerLinks = {
   program: [
-    { label: "Curriculum", href: "#program" },
-    { label: "Schedule", href: "#" },
-    { label: "Mentors", href: "#" },
-    { label: "Careers", href: "#" },
+    // { label: "Curriculum", href: "#program" },
+    { label: "Schedule", href: "#contact" },
+    { label: "Mentors", href: "#founders" },
+    // { label: "Careers", href: "#" },
   ],
   company: [
-    { label: "About Us", href: "#" },
+    { label: "About Us", href: "#founders" },
     { label: "Success Stories", href: "#testimonials" },
     { label: "Blog", href: "#" },
     { label: "Contact", href: "#contact" },
@@ -109,6 +113,85 @@ const itemVariants = {
 };
 
 export function Footer() {
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Replace with your actual Zoho form URL
+  const ZOHO_NEWSLETTER_FORM_URL = 'https://forms.zohopublic.in/rahulrocks9876543210gm1/form/NewsletterSubscription/formperma/YOUR_NEWSLETTER_FORM_PERMALINK';
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Reset states
+    setErrorMessage('');
+    setSubscriptionStatus('idle');
+
+    // Validate email
+    if (!email.trim()) {
+      setErrorMessage('Please enter your email address');
+      setSubscriptionStatus('error');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setErrorMessage('Please enter a valid email address');
+      setSubscriptionStatus('error');
+      return;
+    }
+
+    setIsSubscribing(true);
+
+    try {
+      // Create form data for Zoho submission
+      const zohoFormData = new FormData();
+      zohoFormData.append('Email', email.trim());
+      zohoFormData.append('SingleLine', 'Newsletter Subscription');
+      zohoFormData.append('SingleLine1', 'footer-subscription');
+      zohoFormData.append('DateTime', new Date().toISOString());
+      zohoFormData.append('Dropdown', 'Newsletter Subscriber');
+
+      // Submit to Zoho
+      const response = await fetch(ZOHO_NEWSLETTER_FORM_URL, {
+        method: 'POST',
+        body: zohoFormData,
+        mode: 'no-cors' // Required for Zoho forms
+      });
+
+      // Since mode is 'no-cors', we can't check response status
+      // Assume success if no error is thrown
+      setSubscriptionStatus('success');
+      setEmail('');
+
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => {
+        setSubscriptionStatus('idle');
+      }, 5000);
+
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      setErrorMessage('Something went wrong. Please try again or contact us directly.');
+      setSubscriptionStatus('error');
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    // Clear error when user starts typing
+    if (subscriptionStatus === 'error') {
+      setSubscriptionStatus('idle');
+      setErrorMessage('');
+    }
+  };
+
   return (
     <footer className="relative border-t border-border/50 bg-gradient-to-br from-background via-background/95 to-background/90 overflow-hidden">
       {/* Background Elements */}
@@ -184,7 +267,7 @@ export function Footer() {
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
               <span className="font-display text-2xl font-bold">
-                Digital<span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Rebels</span>
+                Invoke<span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">It</span>
               </span>
             </motion.a>
 
@@ -196,14 +279,14 @@ export function Footer() {
             {/* Contact Info */}
             <div className="space-y-3 mb-6">
               <motion.a
-                href="mailto:hello@digitalrebels.in"
+                href="mailto:hello@invokeIt.in"
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors group"
                 whileHover={{ x: 5 }}
               >
                 <div className="p-2 rounded-lg bg-gradient-to-r from-blue-500/20 to-cyan-500/20 group-hover:from-blue-500/30 group-hover:to-cyan-500/30 transition-all duration-300">
                   <Mail className="h-4 w-4 text-blue-400" />
                 </div>
-                hello@digitalrebels.in
+                hello@invokeIt.in
               </motion.a>
 
               <motion.a
@@ -332,7 +415,7 @@ export function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* Newsletter Section */}
+        {/* Newsletter Section with Zoho Integration */}
         <motion.div
           className="mb-12"
           initial={{ opacity: 0, y: 30 }}
@@ -353,22 +436,87 @@ export function Footer() {
               Join the <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Rebellion</span>
             </h3>
             <p className="text-muted-foreground mb-6">
-              Get the latest updates on new courses, success stories, and exclusive offers.
+              Get the latest updates on new courses, success stories, and exclusive offers delivered to your inbox.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 rounded-lg glass backdrop-blur-md bg-white/5 border border-border/50 focus:border-purple-500/50 focus:outline-none text-foreground placeholder:text-muted-foreground"
-              />
-              <motion.button
-                className="px-6 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Subscribe
-              </motion.button>
+            {/* Newsletter Form */}
+            <form onSubmit={handleSubscribe} className="space-y-4">
+              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <div className="flex-1">
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={handleEmailChange}
+                    disabled={isSubscribing}
+                    className={`w-full px-4 py-3 rounded-lg glass backdrop-blur-md bg-white/5 border transition-all duration-300 focus:outline-none text-foreground placeholder:text-muted-foreground ${subscriptionStatus === 'error'
+                        ? 'border-red-500/50 focus:border-red-500'
+                        : 'border-border/50 focus:border-purple-500/50'
+                      }`}
+                  />
+                </div>
+                <motion.button
+                  type="submit"
+                  disabled={isSubscribing || !email.trim()}
+                  className="px-6 py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[140px]"
+                  whileHover={{ scale: isSubscribing ? 1 : 1.05 }}
+                  whileTap={{ scale: isSubscribing ? 1 : 0.95 }}
+                >
+                  {isSubscribing ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Subscribing...
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-4 h-4" />
+                      Subscribe
+                    </>
+                  )}
+                </motion.button>
+              </div>
+
+              {/* Status Messages */}
+              <AnimatePresence>
+                {subscriptionStatus === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex items-center justify-center gap-2 text-green-400 text-sm bg-green-500/10 border border-green-500/20 rounded-lg p-3"
+                  >
+                    <CheckCircle className="w-4 h-4" />
+                    🎉 Successfully subscribed! Welcome to the rebellion!
+                  </motion.div>
+                )}
+
+                {subscriptionStatus === 'error' && errorMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex items-center justify-center gap-2 text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3"
+                  >
+                    <AlertCircle className="w-4 h-4" />
+                    {errorMessage}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </form>
+
+            <div className="mt-6 flex items-center justify-center gap-4 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <CheckCircle className="w-3 h-3 text-green-400" />
+                No spam, ever
+              </span>
+              <span className="flex items-center gap-1">
+                <CheckCircle className="w-3 h-3 text-green-400" />
+                Unsubscribe anytime
+              </span>
+              <span className="flex items-center gap-1">
+                <CheckCircle className="w-3 h-3 text-green-400" />
+                Weekly updates
+              </span>
             </div>
           </div>
         </motion.div>
@@ -381,7 +529,7 @@ export function Footer() {
           viewport={{ once: true }}
         >
           <p className="text-sm text-muted-foreground">
-            © 2025 Digital Rebels. All rights reserved.
+            © 2026 InvokeIt. All rights reserved.
           </p>
           <motion.p
             className="text-sm text-muted-foreground flex items-center gap-2"

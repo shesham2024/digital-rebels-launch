@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,10 +19,10 @@ import {
   Send,
   Calendar,
   User,
-  GraduationCap,
-  Briefcase,
   CheckCircle,
-  Zap
+  Zap,
+  Loader2,
+  AlertCircle
 } from "lucide-react";
 
 const contactInfo = [
@@ -35,7 +36,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    lines: ["hello@digitalrebels.in"],
+    lines: ["hello@invokeIt.in"],
     gradient: "from-blue-500 to-cyan-500",
     description: "Quick response guaranteed"
   },
@@ -87,14 +88,142 @@ const itemVariants = {
 };
 
 export function ContactSection() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    qualification: '',
+    yearOfPassing: '',
+    category: ''
+  });
+
+  // Replace with your actual Zoho form URL
+  const ZOHO_FORM_URL = 'https://forms.zohopublic.in/rahulrocks9876543210gm1/form/ContactForm/formperma/YOUR_FORM_PERMALINK';
+
   const handleWhatsAppChat = () => {
     window.open('https://wa.me/919059065724', '_blank');
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: ''
+      });
+    }
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+
+    // Clear error when user selects
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: ''
+      });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        newErrors.email = 'Please enter a valid email address';
+      }
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else {
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!phoneRegex.test(formData.phone.replace(/\D/g, ''))) {
+        newErrors.phone = 'Please enter a valid 10-digit phone number';
+      }
+    }
+
+    if (!formData.qualification) {
+      newErrors.qualification = 'Please select your qualification';
+    }
+
+    if (!formData.yearOfPassing) {
+      newErrors.yearOfPassing = 'Please select your year of passing';
+    }
+
+    if (!formData.category) {
+      newErrors.category = 'Please select your category';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted');
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Create URL with query parameters for Zoho form
+    const params = new URLSearchParams({
+      'Name_First': formData.firstName,
+      'Name_Last': formData.lastName,
+      'Email': formData.email,
+      'PhoneNumber_countrycode': formData.phone,
+      'Dropdown': formData.qualification,
+      'Dropdown1': formData.yearOfPassing,
+      'Dropdown2': formData.category,
+      'SingleLine': 'Contact Form Submission',
+      'SingleLine1': 'demo-request'
+    });
+
+    // Navigate to Zoho form with pre-filled data
+    const zohoFormWithData = `${ZOHO_FORM_URL}?${params.toString()}`;
+
+    // Open in new tab/window
+    window.open(zohoFormWithData, '_blank');
+
+    // Reset form after navigation
+    setTimeout(() => {
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        qualification: '',
+        yearOfPassing: '',
+        category: ''
+      });
+      setIsSubmitting(false);
+    }, 1000);
   };
 
   return (
@@ -123,9 +252,7 @@ export function ContactSection() {
           >
             <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-cyan-500/10">
               <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-sm font-semibold text-blue-300 uppercase tracking-wider">
-                Get In Touch
-              </span>
+              <span className="text-sm font-semibold text-blue-300 uppercase tracking-wider">Get In Touch</span>
             </div>
           </motion.div>
 
@@ -151,7 +278,7 @@ export function ContactSection() {
                 <h3 className="font-display text-2xl font-bold text-foreground mb-2">
                   Register for <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Free Demo</span>
                 </h3>
-                <p className="text-muted-foreground">Fill out the form below and we'll get back to you within 24 hours</p>
+                <p className="text-muted-foreground">Fill out the form below and we'll redirect you to complete your registration</p>
               </div>
 
               {/* Form Benefits */}
@@ -177,63 +304,175 @@ export function ContactSection() {
 
               <form onSubmit={handleFormSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input
-                    placeholder="Your Name"
-                    className="glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300"
-                    required
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Email Address"
-                    className="glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300"
-                    required
-                  />
+                  <div>
+                    <Input
+                      name="firstName"
+                      placeholder="First Name *"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      className={`glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300 ${errors.firstName ? 'border-red-500/50 focus:border-red-500' : ''
+                        }`}
+                      required
+                    />
+                    {errors.firstName && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-1 mt-1 text-red-400 text-xs"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.firstName}
+                      </motion.div>
+                    )}
+                  </div>
+                  <div>
+                    <Input
+                      name="lastName"
+                      placeholder="Last Name *"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      className={`glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300 ${errors.lastName ? 'border-red-500/50 focus:border-red-500' : ''
+                        }`}
+                      required
+                    />
+                    {errors.lastName && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-1 mt-1 text-red-400 text-xs"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.lastName}
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
 
-                <Input
-                  type="tel"
-                  placeholder="Phone Number"
-                  className="glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300"
-                  required
-                />
+                <div>
+                  <Input
+                    name="email"
+                    type="email"
+                    placeholder="Email Address *"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300 ${errors.email ? 'border-red-500/50 focus:border-red-500' : ''
+                      }`}
+                    required
+                  />
+                  {errors.email && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center gap-1 mt-1 text-red-400 text-xs"
+                    >
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.email}
+                    </motion.div>
+                  )}
+                </div>
+
+                <div>
+                  <Input
+                    name="phone"
+                    type="tel"
+                    placeholder="Phone Number *"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className={`glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300 ${errors.phone ? 'border-red-500/50 focus:border-red-500' : ''
+                      }`}
+                    required
+                  />
+                  {errors.phone && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center gap-1 mt-1 text-red-400 text-xs"
+                    >
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.phone}
+                    </motion.div>
+                  )}
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Select>
-                    <SelectTrigger className="glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300">
-                      <SelectValue placeholder="Qualification" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="btech">B.Tech</SelectItem>
-                      <SelectItem value="bsc">BSc/BCA</SelectItem>
-                      <SelectItem value="msc">MSc/MCA</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div>
+                    <Select onValueChange={(value) => handleSelectChange('qualification', value)}>
+                      <SelectTrigger className={`glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300 ${errors.qualification ? 'border-red-500/50' : ''
+                        }`}>
+                        <SelectValue placeholder="Qualification *" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="btech">B.Tech</SelectItem>
+                        <SelectItem value="bsc">BSc/BCA</SelectItem>
+                        <SelectItem value="msc">MSc/MCA</SelectItem>
+                        <SelectItem value="diploma">Diploma</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.qualification && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-1 mt-1 text-red-400 text-xs"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.qualification}
+                      </motion.div>
+                    )}
+                  </div>
 
-                  <Select>
-                    <SelectTrigger className="glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300">
-                      <SelectValue placeholder="Year of Passing" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2026">2026</SelectItem>
-                      <SelectItem value="2025">2025</SelectItem>
-                      <SelectItem value="2024">2024</SelectItem>
-                      <SelectItem value="earlier">Earlier</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div>
+                    <Select onValueChange={(value) => handleSelectChange('yearOfPassing', value)}>
+                      <SelectTrigger className={`glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300 ${errors.yearOfPassing ? 'border-red-500/50' : ''
+                        }`}>
+                        <SelectValue placeholder="Year of Passing *" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="2026">2026</SelectItem>
+                        <SelectItem value="2025">2025</SelectItem>
+                        <SelectItem value="2024">2024</SelectItem>
+                        <SelectItem value="2023">2023</SelectItem>
+                        <SelectItem value="2022">2022</SelectItem>
+                        <SelectItem value="earlier">Earlier</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.yearOfPassing && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-1 mt-1 text-red-400 text-xs"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.yearOfPassing}
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
 
-                <Select>
-                  <SelectTrigger className="glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300">
-                    <SelectValue placeholder="I am a..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="student">College Student</SelectItem>
-                    <SelectItem value="fresher">Fresher</SelectItem>
-                    <SelectItem value="professional">Working Professional</SelectItem>
-                    <SelectItem value="switcher">Career Switcher</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div>
+                  <Select onValueChange={(value) => handleSelectChange('category', value)}>
+                    <SelectTrigger className={`glass backdrop-blur-md bg-white/5 border-border/50 focus:border-purple-500/50 transition-all duration-300 ${errors.category ? 'border-red-500/50' : ''
+                      }`}>
+                      <SelectValue placeholder="I am a... *" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="student">College Student</SelectItem>
+                      <SelectItem value="fresher">Fresher</SelectItem>
+                      <SelectItem value="professional">Working Professional</SelectItem>
+                      <SelectItem value="switcher">Career Switcher</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {errors.category && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center gap-1 mt-1 text-red-400 text-xs"
+                    >
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.category}
+                    </motion.div>
+                  )}
+                </div>
 
                 <motion.div
                   whileHover={{ scale: 1.02 }}
@@ -241,15 +480,28 @@ export function ContactSection() {
                 >
                   <Button
                     type="submit"
-                    variant="aurora"
                     size="lg"
-                    className="w-full shadow-2xl shadow-purple-500/25"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-2xl shadow-purple-500/25"
                   >
-                    <Send className="w-5 h-5 mr-2" />
-                    Book Free Demo
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Redirecting...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5 mr-2" />
+                        Book Free Demo
+                      </>
+                    )}
                   </Button>
                 </motion.div>
               </form>
+
+              <p className="text-xs text-muted-foreground mt-4 text-center">
+                * Required fields. You'll be redirected to complete your registration securely.
+              </p>
             </div>
           </motion.div>
 
@@ -326,16 +578,13 @@ export function ContactSection() {
             <div className="flex justify-center mb-6">
               <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-purple-500/30 bg-gradient-to-r from-purple-500/20 to-pink-500/20">
                 <Zap className="w-4 h-4 text-purple-400" />
-                <span className="text-sm font-semibold text-purple-300 uppercase tracking-wider">
-                  Quick Response
-                </span>
+                <span className="text-sm font-semibold text-purple-300 uppercase tracking-wider">Quick Response</span>
               </div>
             </div>
 
             <h3 className="font-display text-2xl md:text-3xl font-bold mb-4">
               Get <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Instant</span> Response
             </h3>
-
             <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
               Our counselors are standing by to help you take the next step in your career.
               Don't wait — your future in tech starts with a single conversation.

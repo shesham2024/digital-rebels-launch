@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import founderProfile from "../assets/founderone.jpeg";
+import sheshamPhotograph from "../assets/sheshamPhotograph.jpeg";
 import {
     Award,
     Briefcase,
@@ -19,70 +21,64 @@ import {
 const mentors = [
     {
         id: 0,
-        name: "[Mentor 1 Name]",
+        name: "Bhaskar Sai Chitturi",
         role: "Founder & Lead Instructor",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-        badge: "Senior Tech Lead",
+        avatar: founderProfile,
+        badge: "Subject Matter Expert",
         badgeGradient: "from-purple-500 to-pink-500",
         credentials: [
             {
                 icon: Briefcase,
-                title: "10+ Years Industry Experience",
-                description: "Worked at top tech companies building scalable backend systems",
+                title: "6+ Years Industry & Training Experience",
+                description: "Worked as a Full-Stack Developer and Corporate Trainer delivering real production-level projects using Java, Spring Boot, Angular, and MEAN stack",
                 gradient: "from-blue-500 to-cyan-500"
             },
             {
                 icon: Code,
-                title: "Senior Architect Level Skills",
-                description: "Designed microservices handling millions of requests daily",
+                title: "Industry-Ready Teaching Approach",
+                description: "Focus on practical implementation, system design thinking, and real-time project development instead of just theory",
                 gradient: "from-green-500 to-emerald-500"
             },
             {
                 icon: GraduationCap,
-                title: "Mentored 500+ Developers",
-                description: "Helped junior devs successfully transition to senior roles",
+                title: "Trained 3000+ Students Successfully",
+                description: "Guided thousands of students from beginners to job-ready developers through structured learning paths and mentorship",
                 gradient: "from-purple-500 to-pink-500"
             },
-            {
-                icon: Award,
-                title: "Active Open Source Contributor",
-                description: "Contributing to Spring ecosystem and AI integration libraries",
-                gradient: "from-orange-500 to-red-500"
-            },
+            // {
+            //     icon: Award,
+            //     title: "Active Open Source Contributor",
+            //     description: "Contributing to Spring ecosystem and AI integration libraries",
+            //     gradient: "from-orange-500 to-red-500"
+            // },
         ],
-        quote: "I don't just teach theory — I share what actually works in production environments."
+        quote: "Learn from a mentor who has trained thousands, built real-world systems, and understands exactly what companies expect from developers."
     },
     {
         id: 1,
-        name: "[Mentor 2 Name]",
-        role: "Co-Founder & AI Specialist",
-        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-        badge: "AI Expert",
+        name: "Shesham Naidu Kella",
+        role: "Co-Founder & Instructor",
+        avatar: sheshamPhotograph,
+        badge: "Industry Practitioner",
         badgeGradient: "from-blue-500 to-cyan-500",
         credentials: [
             {
-                icon: Target,
-                title: "8+ Years in AI/ML",
-                description: "Built AI solutions for Fortune 500 companies and startups",
-                gradient: "from-purple-500 to-pink-500"
-            },
-            {
-                icon: Code,
-                title: "Full-Stack AI Integration",
-                description: "Expert in integrating AI models into production applications",
+                icon: Briefcase,
+                title: "7+ Years Product Engineering Experience",
+                description: "Senior Engineer at Carrier Global. Built production-grade applications using Node.js, React, TypeScript, MongoDB, Redis, and AWS in a real microservices architecture environment.",
                 gradient: "from-blue-500 to-cyan-500"
             },
             {
-                icon: Users,
-                title: "Trained 300+ Engineers",
-                description: "Specialized in teaching AI concepts to traditional developers",
+                icon: Code,
+                title: "Real-World Project Based Teaching",
+                description: "Learn by building real systems — REST APIs, scalable backends, authentication, caching, queues, and deployments on AWS instead of theoretical tutorials.",
                 gradient: "from-green-500 to-emerald-500"
             },
             {
-                icon: Award,
-                title: "Published AI Researcher",
-                description: "Published papers on practical AI implementation in enterprise systems",
-                gradient: "from-yellow-500 to-orange-500"
+                icon: GraduationCap,
+                title: "System Design & Job Preparation Focus",
+                description: "Covers practical backend development, system design interviews, debugging skills, and how real companies actually build software — preparing students to become industry-ready developers.",
+                gradient: "from-purple-500 to-pink-500"
             },
         ],
         quote: "AI isn't magic — it's engineering. I'll show you how to build it right."
@@ -106,7 +102,7 @@ const Founder = () => {
     const currentMentor = mentors[activeMentor];
 
     return (
-        <section className="py-24 relative overflow-hidden">
+        <section className="py-24 relative overflow-hidden" id="founders">
             {/* Background Elements */}
             <div className="absolute inset-0">
                 <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-[128px] animate-pulse" />
@@ -199,7 +195,7 @@ const Founder = () => {
                                     {/* Photo Section */}
                                     <div className="bg-gradient-to-br from-purple-500/10 via-pink-500/5 to-blue-500/10 min-h-[500px] flex items-center justify-center relative">
                                         {/* Decorative elements */}
-                                        <div className="absolute top-8 left-8 w-16 h-16 border border-purple-500/20 rounded-full animate-pulse" />
+                                        {/* <div className="absolute top-8 left-8 w-16 h-16 border border-purple-500/20 rounded-full animate-pulse" /> */}
                                         <div className="absolute bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-sm" />
 
                                         <motion.div
@@ -243,7 +239,7 @@ const Founder = () => {
                                                 </span>?
                                             </h3>
                                             <p className="text-muted-foreground mb-8 leading-relaxed">
-                                                Real-world experience meets practical teaching methodology
+                                                Real-world industry experience combined with practical, job-focused teaching
                                             </p>
                                         </motion.div>
 
