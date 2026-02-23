@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+// import invokelogo from "../assets/invokelogo.png";
+import fourthLogo from '../assets/invokebg.png';
+
 import {
   Sparkles,
   Mail,
@@ -31,13 +34,13 @@ const footerLinks = {
   company: [
     { label: "About Us", href: "#founders" },
     { label: "Success Stories", href: "#testimonials" },
-    { label: "Blog", href: "#" },
+    // { label: "Blog", href: "#" },
     { label: "Contact", href: "#contact" },
   ],
   legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Refund Policy", href: "#" },
+    { label: "Privacy Policy", href: "/privacy-policy", isRoute: true, openInNewTab: true },
+    { label: "Terms of Service", href: "/terms-of-service", isRoute: true, openInNewTab: true },
+    { label: "Refund Policy", href: "/refund-policy", isRoute: true, openInNewTab: true },
   ],
 };
 
@@ -192,6 +195,15 @@ export function Footer() {
     }
   };
 
+  // Function to handle legal page clicks (Privacy Policy and Terms of Service)
+  const handleLegalLinkClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    // Get the current origin (protocol + hostname + port)
+    const currentOrigin = window.location.origin;
+    // Open legal page in new tab
+    window.open(`${currentOrigin}${href}`, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <footer className="relative border-t border-border/50 bg-gradient-to-br from-background via-background/95 to-background/90 overflow-hidden">
       {/* Background Elements */}
@@ -209,7 +221,7 @@ export function Footer() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <div className="text-center mb-8">
+          {/* <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
               <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-pink-500/10">
                 <Sparkles className="w-4 h-4 text-purple-400" />
@@ -221,9 +233,9 @@ export function Footer() {
             <h3 className="font-display text-2xl md:text-3xl font-bold">
               Transforming <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Careers</span> Daily
             </h3>
-          </div>
+          </div> */}
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {quickStats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -242,7 +254,7 @@ export function Footer() {
                 <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
               </motion.div>
             ))}
-          </div>
+          </div> */}
         </motion.div>
 
         {/* Main Footer Content */}
@@ -258,18 +270,20 @@ export function Footer() {
             className="lg:col-span-2"
             variants={itemVariants}
           >
-            <motion.a
-              href="#"
-              className="flex items-center gap-2 mb-6"
-              whileHover={{ scale: 1.05 }}
+            <motion.div
+              className="flex items-center gap-4"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg">
-                <Sparkles className="h-6 w-6 text-white" />
+              <div className="relative">
+                <img
+                  src={fourthLogo}
+                  alt="InvokeIt Logo"
+                  className="h-7 md:h-8 lg:h-[50px] w-auto object-contain select-none"
+                />
               </div>
-              <span className="font-display text-2xl font-bold">
-                Invoke<span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">It</span>
-              </span>
-            </motion.a>
+
+            </motion.div>
 
             <p className="max-w-sm text-muted-foreground leading-relaxed mb-6">
               Transforming coders into AI-ready professionals with industry-focused,
@@ -297,7 +311,7 @@ export function Footer() {
                 <div className="p-2 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20 group-hover:from-green-500/30 group-hover:to-emerald-500/30 transition-all duration-300">
                   <Phone className="h-4 w-4 text-green-400" />
                 </div>
-                +91 90590 65724
+                +91 90590 65724 / +91 93908 29318
               </motion.a>
 
               <motion.div
@@ -401,14 +415,28 @@ export function Footer() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground flex items-center gap-2 group"
-                  >
-                    <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {link.label}
-                    <ExternalLink className="h-3 w-3 opacity-50" />
-                  </a>
+                  {link.isRoute && link.openInNewTab ? (
+                    // Special handling for legal pages - opens in new tab
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleLegalLinkClick(e, link.href)}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground flex items-center gap-2 group cursor-pointer"
+                    >
+                      <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {link.label}
+                      <ExternalLink className="h-3 w-3 opacity-50" />
+                    </a>
+                  ) : (
+                    // Regular anchor tag for other links
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground flex items-center gap-2 group"
+                    >
+                      <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {link.label}
+                      {!link.href.startsWith('#') && <ExternalLink className="h-3 w-3 opacity-50" />}
+                    </a>
+                  )}
                 </motion.li>
               ))}
             </ul>
@@ -450,8 +478,8 @@ export function Footer() {
                     onChange={handleEmailChange}
                     disabled={isSubscribing}
                     className={`w-full px-4 py-3 rounded-lg glass backdrop-blur-md bg-white/5 border transition-all duration-300 focus:outline-none text-foreground placeholder:text-muted-foreground ${subscriptionStatus === 'error'
-                        ? 'border-red-500/50 focus:border-red-500'
-                        : 'border-border/50 focus:border-purple-500/50'
+                      ? 'border-red-500/50 focus:border-red-500'
+                      : 'border-border/50 focus:border-purple-500/50'
                       }`}
                   />
                 </div>

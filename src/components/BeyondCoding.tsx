@@ -72,7 +72,7 @@ const itemVariants = {
 
 export function BeyondCoding() {
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-16 pt-8 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full blur-[128px] animate-pulse" />
@@ -83,7 +83,7 @@ export function BeyondCoding() {
       <div className="container relative z-10 mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          className="mb-16 text-center"
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

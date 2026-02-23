@@ -68,7 +68,7 @@ const itemVariants = {
 
 export function ProgramHighlights() {
   return (
-    <section className="relative overflow-hidden py-24" id="program">
+    <section className="relative overflow-hidden py-16 pb-8" id="program">
       <div>
         <motion.div
           className="text-center mb-12"
@@ -160,4 +160,3 @@ export function ProgramHighlights() {
     </section>
   )
 }
-

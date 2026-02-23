@@ -78,7 +78,7 @@ const AISurvivalQuote = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-16 pt-8 pb-8 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-full blur-[128px] animate-pulse" />
@@ -89,7 +89,7 @@ const AISurvivalQuote = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -292,9 +292,9 @@ const AISurvivalQuote = () => {
             {/* Bottom Stats */}
             <div className="grid grid-cols-3 gap-6 mt-8 pt-6 border-t border-border/20">
               {[
-                { value: "500+", label: "Rebels Trained" },
-                { value: "95%", label: "Success Rate" },
-                { value: "24/7", label: "Support Available" }
+                { value: "2250+", label: "Students Trained" },
+                { value: "90%", label: "Success Rate" },
+                { value: "35+", label: "Hiring Partners" }
               ].map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-1">

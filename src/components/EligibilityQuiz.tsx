@@ -5,7 +5,8 @@ import { QUESTION_POOL } from "@/lib/eligibilityQuestions";
 import { getRandomQuestions } from "@/lib/random";
 import { CheckCircle, Target, Zap, Users, ArrowRight, Brain, ArrowLeft, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import invokelogo from "../assets/invokelogo.png";
+// import invokelogo from "../assets/invokelogo.png";
+import fourthLogo from '../assets/invokebg.png';
 
 const PASS_MARK = 6;
 
@@ -78,27 +79,26 @@ export function EligibilityQuiz() {
           <div className="flex items-center justify-between py-4">
             {/* Logo Section */}
             <motion.div
-              className="flex items-center gap-4"
+              className="flex items-center"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
+              // onClick={() => handleNavClick("Home", "#")}
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl blur-lg"></div>
-                <div className="relative flex items-center justify-center h-12 w-12 rounded-2xl overflow-hidden glass backdrop-blur-md bg-white/5 border border-purple-500/30">
-                  <img
-                    src={invokelogo}
-                    alt="InvokeIt Logo"
-                    className="h-8 w-8 object-contain"
-                  />
-                </div>
-              </div>
-              <div>
-                <h1 className="font-display text-lg font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                  InvokeIt
-                </h1>
-                <p className="text-xs text-muted-foreground font-medium">
-                  Eligibility Quiz
-                </p>
+              <div className="relative group cursor-pointer">
+                {/* Logo image - Clean and simple */}
+                <motion.img
+                  src={fourthLogo}
+                  alt="InvokeIt Logo"
+                  className="relative z-10 h-14 md:h-16 lg:h-[70px] w-auto object-contain select-none filter brightness-110 contrast-110 group-hover:brightness-125 group-hover:contrast-125 transition-all duration-300"
+                  style={{
+                    mixBlendMode: 'multiply'
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    filter: "drop-shadow(0 0 20px rgba(139, 92, 246, 0.4))"
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
               </div>
             </motion.div>
 

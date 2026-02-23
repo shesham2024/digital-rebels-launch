@@ -227,7 +227,7 @@ export function ContactSection() {
   };
 
   return (
-    <section className="relative overflow-hidden py-24" id="contact">
+    <section className="relative overflow-hidden py-16 pt-8" id="contact">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-[128px] animate-pulse" />
@@ -238,7 +238,7 @@ export function ContactSection() {
       <div className="container relative z-10 mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          className="mb-16 text-center"
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -601,7 +601,7 @@ export function ContactSection() {
                 },
                 {
                   icon: User,
-                  value: "1000+",
+                  value: "2250+",
                   label: "Students Counseled",
                   gradient: "from-green-500 to-emerald-500"
                 },

@@ -108,7 +108,7 @@ const itemVariants = {
 
 export function WhyDigitalRebels() {
   return (
-    <section id="why-us" className="relative py-24 overflow-hidden">
+    <section id="why-us" className="relative py-16 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-[128px] animate-pulse" />
@@ -118,7 +118,7 @@ export function WhyDigitalRebels() {
       <div className="container relative z-10 mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          className="mb-16 text-center"
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -149,7 +149,7 @@ export function WhyDigitalRebels() {
 
         {/* Comparison Cards */}
         <motion.div
-          className="mb-24 grid gap-6 md:grid-cols-3 max-w-6xl mx-auto"
+          className="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -174,8 +174,8 @@ export function WhyDigitalRebels() {
                 <div className="mb-6 flex items-center gap-3">
                   <div
                     className={`flex h-12 w-12 items-center justify-center rounded-xl shadow-lg ${comparison.isHighlighted
-                        ? "bg-gradient-to-r from-purple-500 to-pink-500"
-                        : "bg-gradient-to-r from-gray-600 to-gray-700"
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500"
+                      : "bg-gradient-to-r from-gray-600 to-gray-700"
                       }`}
                   >
                     <comparison.icon className="h-6 w-6 text-white" />

@@ -828,7 +828,7 @@ export function Testimonials() {
     const selectedReview = textTestimonials[currentReviewIndex];
 
     return (
-        <section className="relative overflow-hidden py-24" id="testimonials">
+        <section className="relative overflow-hidden py-16" id="testimonials">
             {/* Background Elements */}
             <div className="absolute inset-0">
                 <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full blur-[128px] animate-pulse" />
@@ -972,7 +972,7 @@ export function Testimonials() {
                         </div>
 
                         <h3 className="font-display text-2xl md:text-3xl font-bold mb-6">
-                            Join <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">500+</span> Success Stories
+                            Join <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">2250+</span> Success Stories
                         </h3>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

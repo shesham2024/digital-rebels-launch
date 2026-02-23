@@ -90,7 +90,7 @@ export function WhoShouldJoin() {
   };
 
   return (
-    <section id="who-should-join" className="relative overflow-hidden py-24">
+    <section id="who-should-join" className="relative overflow-hidden py-16">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-full blur-[128px] animate-pulse" />

@@ -56,7 +56,7 @@ const HeroSection = () => {
           >
             <Badge className="px-6 py-3 text-sm font-semibold border border-purple-400/60 bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-purple-50 hover:from-purple-600/80 hover:to-pink-600/80 transition-all duration-300 shadow-lg shadow-purple-500/20 rounded-full animate-pulse">
               <Clock className="w-4 h-4 mr-2" />
-              Next Batch Starts Feb 15 — Only 25 Seats Left
+              Next Batch Starts Feb 15 — Only 15 Seats Left
             </Badge>
           </motion.div>
 
@@ -89,7 +89,7 @@ const HeroSection = () => {
               Java Full Stack with Gen AI
             </span>{" "}
             — Built for the AI Corporate World. Transform from a coder to an
-            AI-ready professional in just 3 months.
+            AI-ready professional in just 100 days.
           </motion.p>
 
           {/* Program Features - Single Line */}
@@ -100,7 +100,7 @@ const HeroSection = () => {
             className="flex flex-wrap justify-center items-center gap-3 md:gap-4 mb-8 max-w-4xl mx-auto"
           >
             {[
-              { icon: Zap, text: "3-Month Intensive", gradient: "from-yellow-400 to-orange-500", border: "border-yellow-400/30" },
+              { icon: Zap, text: "100 Days Intensive", gradient: "from-yellow-400 to-orange-500", border: "border-yellow-400/30" },
               { icon: Users, text: "1:1 Mentorship", gradient: "from-purple-400 to-pink-500", border: "border-purple-400/30" },
               { icon: Target, text: "Job Placement", gradient: "from-blue-400 to-cyan-500", border: "border-blue-400/30" }
             ].map((feature, index) => (
@@ -128,7 +128,7 @@ const HeroSection = () => {
             className="flex flex-wrap justify-center items-center gap-3 md:gap-4 text-sm mb-10 max-w-5xl mx-auto"
           >
             {[
-              { text: "100% Money-Back Guarantee", color: "text-green-400", border: "border-green-400/30" },
+              { text: "Only 15 Seats Per Batch", color: "text-green-400", border: "border-green-400/30" },
               { text: "No Prior Experience Needed", color: "text-blue-400", border: "border-blue-400/30" },
               { text: "Weekend-Friendly Schedule", color: "text-purple-400", border: "border-purple-400/30" }
             ].map((guarantee, index) => (
@@ -192,9 +192,9 @@ const HeroSection = () => {
             className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto"
           >
             {[
-              { value: "500+", label: "Students Trained", icon: Users, gradient: "from-purple-500 to-pink-500" },
-              { value: "95%", label: "Placement Rate", icon: Target, gradient: "from-blue-500 to-cyan-500" },
-              { value: "50+", label: "Hiring Partners", icon: Award, gradient: "from-green-500 to-emerald-500" },
+              { value: "2250+", label: "Students Trained", icon: Users, gradient: "from-purple-500 to-pink-500" },
+              { value: "90%", label: "Placement Rate", icon: Target, gradient: "from-blue-500 to-cyan-500" },
+              { value: "35+", label: "Hiring Partners", icon: Award, gradient: "from-green-500 to-emerald-500" },
               { value: "4.9★", label: "Student Rating", icon: Star, gradient: "from-yellow-500 to-orange-500" },
             ].map((stat, index) => (
               <motion.div

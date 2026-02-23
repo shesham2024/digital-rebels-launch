@@ -326,9 +326,9 @@ const Founder = () => {
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             {[
-                                { value: "18+", label: "Years Combined Experience", icon: Award, gradient: "from-blue-500 to-cyan-500" },
-                                { value: "800+", label: "Developers Mentored", icon: Users, gradient: "from-green-500 to-emerald-500" },
-                                { value: "50+", label: "Production Systems Built", icon: Target, gradient: "from-purple-500 to-pink-500" },
+                                { value: "15+", label: "Years Combined Experience", icon: Award, gradient: "from-blue-500 to-cyan-500" },
+                                { value: "2250+", label: "Developers Mentored", icon: Users, gradient: "from-green-500 to-emerald-500" },
+                                { value: "40+", label: "Production Systems Built", icon: Target, gradient: "from-purple-500 to-pink-500" },
                                 { value: "100%", label: "Practical Focus", icon: CheckCircle, gradient: "from-orange-500 to-red-500" },
                             ].map((stat, index) => (
                                 <motion.div

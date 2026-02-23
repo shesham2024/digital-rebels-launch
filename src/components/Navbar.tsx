@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Menu, X, Phone, Mail, MapPin, Clock, Star, Users, Award, Zap } from "lucide-react";
-import invokelogo from "../assets/invokelogo.png";
+import fourthLogo from '../assets/invokebg.png';
+
 
 const navLinks = [
   { label: "Home", href: "#", icon: null },
@@ -93,18 +94,21 @@ export function Navbar() {
     setActiveLink(label);
     setIsOpen(false);
 
-    // Smooth scroll to section
-    if (href === "#") {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+    // Add a small delay to ensure mobile menu closes first
+    setTimeout(() => {
+      // Smooth scroll to section
+      if (href === "#") {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       }
-    }
+    }, 100);
   };
 
   return (
@@ -120,27 +124,26 @@ export function Navbar() {
           <div className="flex items-center justify-between py-4">
             {/* Logo Section */}
             <motion.div
-              className="flex items-center gap-4"
+              className="flex items-center"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
+              onClick={() => handleNavClick("Home", "#")}
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl blur-lg"></div>
-                <div className="relative flex items-center justify-center h-16 w-16 rounded-2xl overflow-hidden glass backdrop-blur-md bg-white/5 border border-purple-500/30">
-                  <img
-                    src={invokelogo}
-                    alt="InvokeIt Logo"
-                    className="h-12 w-12 object-contain"
-                  />
-                </div>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="font-display text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                  InvokeIt
-                </h1>
-                <p className="text-xs text-muted-foreground font-medium">
-                  Build whats next
-                </p>
+              <div className="relative group cursor-pointer">
+                {/* Logo image - Clean and simple */}
+                <motion.img
+                  src={fourthLogo}
+                  alt="InvokeIt Logo"
+                  className="relative z-10 h-14 md:h-16 lg:h-[70px] w-auto object-contain select-none filter brightness-110 contrast-110 group-hover:brightness-125 group-hover:contrast-125 transition-all duration-300"
+                  style={{
+                    mixBlendMode: 'multiply'
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    filter: "drop-shadow(0 0 20px rgba(139, 92, 246, 0.4))"
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
               </div>
             </motion.div>
 
@@ -150,9 +153,9 @@ export function Navbar() {
                 <motion.button
                   key={link.label}
                   onClick={() => handleNavClick(link.label, link.href)}
-                  className={`relative px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 whitespace-nowrap ${activeLink === link.label
-                      ? 'text-white shadow-lg shadow-purple-500/25'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-white/10'
+                  className={`relative px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap ${activeLink === link.label
+                    ? 'text-white shadow-lg shadow-purple-500/25'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-white/10'
                     }`}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -174,16 +177,6 @@ export function Navbar() {
 
             {/* CTA Section */}
             <div className="flex items-center gap-4">
-              {/* Live Indicator */}
-              {/* <motion.div
-                className="hidden md:flex items-center gap-2 px-3 py-2 rounded-full glass backdrop-blur-md bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 }}
-              >
-
-              </motion.div> */}
-
               {/* CTA Button */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -265,21 +258,21 @@ export function Navbar() {
                     {navLinks.map((link, index) => (
                       <motion.button
                         key={link.label}
-                        onClick={() => handleNavClick(link.label, link.href)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${activeLink === link.label
-                            ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleNavClick(link.label, link.href);
+                        }}
+                        className={`w-full flex items-center px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 text-left ${activeLink === link.label
+                          ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                           }`}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 + 0.2 }}
+                        whileTap={{ scale: 0.98 }}
                       >
                         {link.label}
-                        {activeLink === link.label && (
-                          <Badge className="ml-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white border-none text-xs">
-                            Active
-                          </Badge>
-                        )}
                       </motion.button>
                     ))}
                   </div>
