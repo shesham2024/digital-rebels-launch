@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 // import invokelogo from "../assets/invokelogo.png";
-import fourthLogo from '../assets/invokebg.png';
+import fourthLogo from '../assets/finalImage-removebg-preview.png';
 
 import {
   Sparkles,
@@ -279,7 +279,7 @@ export function Footer() {
                 <img
                   src={fourthLogo}
                   alt="InvokeIt Logo"
-                  className="h-7 md:h-8 lg:h-[50px] w-auto object-contain select-none"
+                  className="h-14 md:h-16 lg:h-[70px] w-auto object-contain select-none"
                 />
               </div>
 

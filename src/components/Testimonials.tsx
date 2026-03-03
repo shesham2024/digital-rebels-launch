@@ -362,8 +362,8 @@ const ModernVideoPlayer = ({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
-                        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent ${isMobile ? 'p-4' : 'p-6'
-                            } z-10`}
+                        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent ${isMobile ? 'p-3' : 'p-6'
+                            } z-[5] pointer-events-none`}
                         style={{
                             paddingBottom: isMobile ? '20px' : '24px',
                             paddingLeft: hasPrevious ? (isMobile ? '60px' : '80px') : (isMobile ? '16px' : '24px'),
@@ -371,25 +371,25 @@ const ModernVideoPlayer = ({
                         }}
                     >
                         <div className="flex items-center gap-4">
-                            <div className={`flex ${isMobile ? 'h-10 w-10' : 'h-12 w-12'
-                                } items-center justify-center rounded-full bg-white/20 backdrop-blur-md ${isMobile ? 'text-lg' : 'text-xl'
+                            <div className={`flex ${isMobile ? 'h-8 w-8' : 'h-12 w-12'
+                                } items-center justify-center rounded-full bg-white/20 backdrop-blur-md ${isMobile ? 'text-sm' : 'text-xl'
                                 } border border-white/30`}>
                                 {selectedVideo?.avatar}
                             </div>
-                            <div className="flex-1">
-                                <p className={`font-display ${isMobile ? 'text-base' : 'text-lg'
-                                    } font-semibold text-white`}>
+                            <div className="flex-1 min-w-0">
+                                <p className={`font-display ${isMobile ? 'text-sm' : 'text-lg'
+                                    } font-semibold text-white truncate`}>
                                     {selectedVideo?.name}
                                 </p>
                                 <p className={`${isMobile ? 'text-xs' : 'text-sm'
-                                    } text-white/80 font-medium`}>
+                                    } text-white/80 font-medium truncate`}>
                                     {selectedVideo?.role}
                                 </p>
                             </div>
                         </div>
-                        <div className="mt-3">
+                        <div className={`${isMobile ? 'mt-2' : 'mt-3'}`}>
                             <p className={`${isMobile ? 'text-xs' : 'text-sm'
-                                } text-white/90 leading-relaxed`}>
+                                } text-white/90 leading-relaxed ${isMobile ? 'line-clamp-2' : 'line-clamp-3'}`}>
                                 "{selectedVideo?.shortQuote}"
                             </p>
                         </div>
@@ -405,7 +405,7 @@ const ModernVideoPlayer = ({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent ${isMobile ? 'p-3' : 'p-4'
-                            } z-20`}
+                            } z-[60]`}
                     >
                         {/* Progress Bar */}
                         <div
@@ -639,92 +639,101 @@ const ReviewCard = ({
 const videoTestimonials = [
     {
         id: 1,
-        name: "Avikalp",
+        name: "Poojitha",
         role: "Software Engineer",
         avatar: "👨‍💻",
-        videoUrl: "/videos/Avikalp.mp4",
-        shortQuote: "The AI integration module completely transformed my approach to backend development.",
+        videoUrl: "/videos/Poojitha.mp4",
+        shortQuote: "Bhaskar sir played a key role in my career achievements at Cognizant.",
         gradient: "from-blue-500 to-cyan-500"
     },
     {
         id: 2,
-        name: "Charan",
-        role: "Full Stack Developer",
-        avatar: "👩‍💻",
-        videoUrl: "/videos/Charan.mp4",
-        shortQuote: "From marketing to Microsoft in 8 months - this program made it possible.",
-        gradient: "from-green-500 to-emerald-500"
+        name: "Avikalp",
+        role: "Software Engineer",
+        avatar: "👨‍💻",
+        videoUrl: "/videos/Avikalp.mp4",
+        shortQuote: "Bhaskar sir's teaching style made me feel comfortable understanding complex concepts.",
+        gradient: "from-blue-500 to-cyan-500"
     },
     {
         id: 3,
-        name: "Ganesh",
-        role: "Senior Backend Engineer",
-        avatar: "👨‍🚀",
-        videoUrl: "/videos/Ganesh.mp4",
-        shortQuote: "The microservices and AI modules gave me the edge I needed for promotion.",
-        gradient: "from-purple-500 to-pink-500"
+        name: "Charan",
+        role: "Software Engineer",
+        avatar: "👩‍💻",
+        videoUrl: "/videos/Charan.mp4",
+        shortQuote: "Bhaskar sir started from the very basics and explained the concepts very clearly, so it became very easy to understand and implement them.",
+        gradient: "from-green-500 to-emerald-500"
     },
     {
         id: 4,
-        name: "Likhitha",
-        role: "Tech Lead",
-        avatar: "👨‍💼",
-        videoUrl: "/videos/Likhitha.mp4",
-        shortQuote: "The system design and architecture modules prepared me for leadership roles.",
-        gradient: "from-orange-500 to-red-500"
+        name: "Ganesh",
+        role: "Software Engineer",
+        avatar: "👨‍🚀",
+        videoUrl: "/videos/Ganesh.mp4",
+        shortQuote: "The learning covers everything from basic to advanced concepts. His teaching is very practical and easy to follow. Real projects and hands-on sessions gave me a clear idea of how systems work.",
+        gradient: "from-purple-500 to-pink-500"
     },
     {
         id: 5,
-        name: "Naga Lakshmi",
-        role: "Senior SDE",
-        avatar: "👩‍🚀",
-        videoUrl: "/videos/NagaLakshmi.mp4",
-        shortQuote: "From startup to Netflix - the interview prep and advanced concepts were game-changers.",
-        gradient: "from-yellow-500 to-orange-500"
+        name: "Likhitha",
+        role: "Software Engineer",
+        avatar: "👨‍💼",
+        videoUrl: "/videos/Likhitha.mp4",
+        shortQuote: "He is very supportive and always ready to help. His interactive and practical teaching helped me grasp concepts quickly.",
+        gradient: "from-orange-500 to-red-500"
     },
     {
         id: 6,
-        name: "Nikhil",
-        role: "Principal Engineer",
-        avatar: "👨‍🎓",
-        videoUrl: "/videos/Nikhil.mp4",
-        shortQuote: "The fintech and payment systems module directly helped me excel at Razorpay.",
-        gradient: "from-indigo-500 to-purple-500"
+        name: "Naga Lakshmi",
+        role: "Software Engineer",
+        avatar: "👩‍🚀",
+        videoUrl: "/videos/NagaLakshmi.mp4",
+        shortQuote: "The way he explains concepts is very clear, simple, and easy to understand. During the training, I learned many technologies.",
+        gradient: "from-yellow-500 to-orange-500"
     },
     {
         id: 7,
-        name: "Sai Kumar",
-        role: "Principal Engineer",
+        name: "Nikhil",
+        role: "Software Engineer",
         avatar: "👨‍🎓",
-        videoUrl: "/videos/SaiKumar.mp4",
-        shortQuote: "The fintech and payment systems module directly helped me excel at Razorpay.",
+        videoUrl: "/videos/Nikhil.mp4",
+        shortQuote: "He is more than a trainer — he is like a mentor and a brother to me. Because of him, I landed my current job.",
         gradient: "from-indigo-500 to-purple-500"
     },
     {
         id: 8,
-        name: "Sai Sateesh",
-        role: "Principal Engineer",
+        name: "Sai Kumar",
+        role: "Software Engineer",
         avatar: "👨‍🎓",
-        videoUrl: "/videos/SaiSateesh.mp4",
-        shortQuote: "The fintech and payment systems module directly helped me excel at Razorpay.",
+        videoUrl: "/videos/SaiKumar.mp4",
+        shortQuote: "I came from a non-tech background, and getting into tech became easy for me because of Bhaskar sir. Now I am working at a product-based startup company.",
         gradient: "from-indigo-500 to-purple-500"
     },
     {
         id: 9,
-        name: "Triveni",
-        role: "Principal Engineer",
+        name: "Sai Sateesh",
+        role: "Frontend Developer",
         avatar: "👨‍🎓",
-        videoUrl: "/videos/Triveni.mp4",
-        shortQuote: "The fintech and payment systems module directly helped me excel at Razorpay.",
+        videoUrl: "/videos/SaiSateesh.mp4",
+        shortQuote: "I had no IT background, no idea how the industry works, and a lot of fear. Bhaskar sir helped me understand the concepts from the basics and made me comfortable with learning. Now I am working as a Frontend Developer.",
         gradient: "from-indigo-500 to-purple-500"
     },
     {
         id: 10,
+        name: "Triveni",
+        role: "Software Engineer",
+        avatar: "👨‍🎓",
+        videoUrl: "/videos/Triveni.mp4",
+        shortQuote: "From being a degree student to now working as a Software Engineer — it is all because of Bhaskar sir’s teaching and support. He is very supportive and always ready to help.",
+        gradient: "from-indigo-500 to-purple-500"
+    },
+    {
+        id: 11,
         name: "Tulasi",
-        role: "Principal Engineer",
+        role: "Software Engineer",
         avatar: "👨‍🎓",
         videoUrl: "/videos/Tulasi.mp4",
-        shortQuote: "The fintech and payment systems module directly helped me excel at Razorpay.",
+        shortQuote: "He not only helped us learn skills but also encouraged us to develop strong conceptual understanding. He is not just a mentor; he is like a friend.",
         gradient: "from-indigo-500 to-purple-500"
     }
 ];
@@ -732,63 +741,102 @@ const videoTestimonials = [
 const textTestimonials = [
     {
         id: 1,
-        name: "Sneha Reddy",
-        role: "Software Developer",
-        avatar: "👩‍💼",
+        name: "Poojitha",
+        role: "Software Engineer",
+        avatar: "👨‍💻",
         rating: 5,
-        text: "I was stuck as a junior developer for 2 years. After completing this program, I not only got promoted but also received a 45% salary increase.",
-        beforeAfter: { before: "Junior Developer - 3.5 LPA", after: "Software Developer - 8 LPA" },
-        gradient: "from-green-500 to-emerald-500"
+        text: "Bhaskar sir played a key role in my career achievements at Cognizant.",
+        gradient: "from-blue-500 to-cyan-500"
     },
     {
         id: 2,
-        name: "Vikash Singh",
-        role: "Backend Engineer",
+        name: "Avikalp",
+        role: "Software Engineer",
         avatar: "👨‍💻",
         rating: 5,
-        text: "Coming from a non-CS background, I thought backend development was impossible. The mentors broke down complex concepts into digestible parts.",
-        beforeAfter: { before: "Mechanical Engineer - 4 LPA", after: "Backend Engineer - 12 LPA" },
+        text: "Bhaskar sir's teaching style made me feel comfortable understanding complex concepts.",
         gradient: "from-blue-500 to-cyan-500"
     },
     {
         id: 3,
-        name: "Ananya Gupta",
-        role: "Full Stack Developer",
-        avatar: "👩‍🚀",
+        name: "Charan",
+        role: "Software Engineer",
+        avatar: "👩‍💻",
         rating: 5,
-        text: "The AI integration modules are pure gold! I'm now the go-to person in my team for AI-powered features.",
-        beforeAfter: { before: "Frontend Developer - 6 LPA", after: "Full Stack Developer - 15 LPA" },
-        gradient: "from-purple-500 to-pink-500"
+        text: "Bhaskar sir started from the very basics and explained the concepts very clearly, so it became very easy to understand and implement them.",
+        gradient: "from-green-500 to-emerald-500"
     },
     {
         id: 4,
-        name: "Rohit Agarwal",
-        role: "Senior Software Engineer",
-        avatar: "👨‍🎓",
+        name: "Ganesh",
+        role: "Software Engineer",
+        avatar: "👨‍🚀",
         rating: 5,
-        text: "Best investment I made in my career. The mentorship was personalized, and the projects were industry-relevant. Got placed at Amazon within 4 months!",
-        beforeAfter: { before: "Fresher - 0 LPA", after: "SDE at Amazon - 28 LPA" },
-        gradient: "from-orange-500 to-red-500"
+        text: "The learning covers everything from basic to advanced concepts. His teaching is very practical and easy to follow. Real projects and hands-on sessions gave me a clear idea of how systems work.",
+        gradient: "from-purple-500 to-pink-500"
     },
     {
         id: 5,
-        name: "Deepika Sharma",
-        role: "DevOps Engineer",
-        avatar: "👩‍💻",
+        name: "Likhitha",
+        role: "Software Engineer",
+        avatar: "👨‍💼",
         rating: 5,
-        text: "The cloud and DevOps modules were incredibly comprehensive. I transitioned from development to DevOps seamlessly with a 60% salary jump!",
-        beforeAfter: { before: "Backend Developer - 8 LPA", after: "DevOps Engineer - 18 LPA" },
-        gradient: "from-indigo-500 to-purple-500"
+        text: "He is very supportive and always ready to help. His interactive and practical teaching helped me grasp concepts quickly.",
+        gradient: "from-orange-500 to-red-500"
     },
     {
         id: 6,
-        name: "Karthik Nair",
-        role: "Data Engineer",
-        avatar: "👨‍🔬",
+        name: "Naga Lakshmi",
+        role: "Software Engineer",
+        avatar: "👩‍🚀",
         rating: 5,
-        text: "The big data and streaming modules opened up a completely new career path for me. From web development to data engineering at Airbnb!",
-        beforeAfter: { before: "Web Developer - 7 LPA", after: "Data Engineer - 22 LPA" },
-        gradient: "from-teal-500 to-cyan-500"
+        text: "The way he explains concepts is very clear, simple, and easy to understand. During the training, I learned many technologies.",
+        gradient: "from-yellow-500 to-orange-500"
+    },
+    {
+        id: 7,
+        name: "Nikhil",
+        role: "Software Engineer",
+        avatar: "👨‍🎓",
+        rating: 5,
+        text: "He is more than a trainer — he is like a mentor and a brother to me. Because of him, I landed my current job.",
+        gradient: "from-indigo-500 to-purple-500"
+    },
+    {
+        id: 8,
+        name: "Sai Kumar",
+        role: "Software Engineer",
+        avatar: "👨‍🎓",
+        rating: 5,
+        text: "I came from a non-tech background, and getting into tech became easy for me because of Bhaskar sir. Now I am working at a product-based startup company.",
+        gradient: "from-indigo-500 to-purple-500"
+    },
+    {
+        id: 9,
+        name: "Sai Sateesh",
+        role: "Frontend Developer",
+        avatar: "👨‍🎓",
+        rating: 5,
+        text: "I had no IT background, no idea how the industry works, and a lot of fear. Bhaskar sir helped me understand the concepts from the basics and made me comfortable with learning. Now I am working as a Frontend Developer.",
+        gradient: "from-indigo-500 to-purple-500"
+    },
+    {
+        id: 10,
+        name: "Triveni",
+        role: "Software Engineer",
+        avatar: "👨‍🎓",
+        rating: 5,
+        text: "From being a degree student to now working as a Software Engineer — it is all because of Bhaskar sir's teaching and support. He is very supportive and always ready to help.",
+        gradient: "from-indigo-500 to-purple-500"
+    },
+    {
+        id: 11,
+        name: "Tulasi",
+        role: "Software Engineer",
+        avatar: "👨‍🎓",
+        rating: 5,
+        text: "He not only helped us learn skills but also encouraged us to develop strong conceptual understanding. He is not just a mentor; he is like a friend.",
+        gradient: "from-indigo-500 to-purple-500"
     }
 ];
 

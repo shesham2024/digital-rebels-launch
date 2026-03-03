@@ -138,26 +138,26 @@ export function FreeTrial() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="flex flex-wrap justify-center items-center gap-6 text-sm"
+                        className="flex flex-wrap justify-center items-center gap-3 md:gap-6 text-sm"
                     >
-                        <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-green-500/20">
+                        <div className="flex items-center gap-2 glass px-3 md:px-4 py-2 rounded-full border border-green-500/20">
                             <Clock className="w-4 h-4 text-green-400" />
-                            <span className="text-green-300 font-medium">Instant Access</span>
+                            <span className="text-green-300 font-medium text-xs md:text-sm">Instant Access</span>
                         </div>
-                        <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-blue-500/20">
+                        <div className="flex items-center gap-2 glass px-3 md:px-4 py-2 rounded-full border border-blue-500/20">
                             <Check className="w-4 h-4 text-blue-400" />
-                            <span className="text-blue-300 font-medium">No Credit Card</span>
+                            <span className="text-blue-300 font-medium text-xs md:text-sm">No Credit Card</span>
                         </div>
-                        <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-purple-500/20">
+                        <div className="flex items-center gap-2 glass px-3 md:px-4 py-2 rounded-full border border-purple-500/20">
                             <Trophy className="w-4 h-4 text-purple-400" />
-                            <span className="text-purple-300 font-medium">500+ Downloaded</span>
+                            <span className="text-purple-300 font-medium text-xs md:text-sm">500+ Downloaded</span>
                         </div>
                     </motion.div>
                 </motion.div>
 
                 {/* Preview Items Grid */}
                 <motion.div
-                    className="grid gap-8 lg:grid-cols-3 max-w-7xl mx-auto mb-16"
+                    className="grid gap-6 md:gap-8 lg:grid-cols-3 max-w-7xl mx-auto mb-16"
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
@@ -170,47 +170,47 @@ export function FreeTrial() {
                             whileHover={{ y: -8, scale: 1.02 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <div className="relative h-full p-6 rounded-2xl glass backdrop-blur-md bg-white/5 border border-border/50 hover:border-purple-500/30 transition-all duration-300 group overflow-hidden">
+                            <div className="relative h-full p-4 md:p-6 rounded-2xl glass backdrop-blur-md bg-white/5 border border-border/50 hover:border-purple-500/30 transition-all duration-300 group overflow-hidden">
                                 {/* Badge */}
-                                <div className="absolute top-4 right-4">
-                                    <span className={`px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r ${item.gradient} text-white shadow-lg`}>
+                                <div className="absolute top-3 md:top-4 right-3 md:right-4">
+                                    <span className={`px-2 md:px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r ${item.gradient} text-white shadow-lg`}>
                                         {item.badge}
                                     </span>
                                 </div>
 
                                 {/* Icon */}
-                                <div className="flex justify-center mb-6">
-                                    <div className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r ${item.gradient} shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110`}>
-                                        <item.icon className="h-8 w-8 text-white" />
+                                <div className="flex justify-center mb-4 md:mb-6">
+                                    <div className={`flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-2xl bg-gradient-to-r ${item.gradient} shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110`}>
+                                        <item.icon className="h-6 w-6 md:h-8 md:w-8 text-white" />
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <div className="text-center mb-6">
-                                    <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-purple-400 transition-colors">
+                                <div className="text-center mb-4 md:mb-6">
+                                    <h3 className="font-display text-lg md:text-xl font-bold text-foreground mb-2 group-hover:text-purple-400 transition-colors">
                                         {item.title}
                                     </h3>
-                                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                                    <p className="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4 leading-relaxed">
                                         {item.description}
                                     </p>
 
                                     {/* Value */}
-                                    <div className="flex items-center justify-center gap-2 mb-4">
-                                        <span className="text-2xl font-bold text-muted-foreground line-through">
+                                    <div className="flex items-center justify-center gap-2 mb-3 md:mb-4">
+                                        <span className="text-lg md:text-2xl font-bold text-muted-foreground line-through">
                                             {item.value}
                                         </span>
-                                        <span className={`text-2xl font-bold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
+                                        <span className={`text-lg md:text-2xl font-bold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
                                             FREE
                                         </span>
                                     </div>
                                 </div>
 
                                 {/* Highlights */}
-                                <ul className="space-y-3 mb-6">
+                                <ul className="space-y-2 md:space-y-3 mb-4 md:mb-6">
                                     {item.highlights.map((highlight, highlightIndex) => (
                                         <motion.li
                                             key={highlight}
-                                            className="flex items-start gap-3 text-sm"
+                                            className="flex items-start gap-2 md:gap-3 text-xs md:text-sm"
                                             initial={{ opacity: 0, x: -10 }}
                                             whileInView={{ opacity: 1, x: 0 }}
                                             transition={{ delay: highlightIndex * 0.1 }}
@@ -236,51 +236,58 @@ export function FreeTrial() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                    <div className="max-w-4xl mx-auto p-8 rounded-2xl glass backdrop-blur-md bg-gradient-to-r from-green-500/10 via-blue-500/5 to-purple-500/10 border border-purple-500/30 relative overflow-hidden">
+                    <div className="max-w-4xl mx-auto p-6 md:p-8 rounded-2xl glass backdrop-blur-md bg-gradient-to-r from-green-500/10 via-blue-500/5 to-purple-500/10 border border-purple-500/30 relative overflow-hidden">
                         {/* Background decoration */}
                         <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 via-transparent to-purple-500/5" />
 
                         <div className="relative z-10">
-                            <div className="flex justify-center mb-6">
-                                <div className="flex items-center gap-2 glass px-4 py-2 rounded-full border border-purple-500/30 bg-gradient-to-r from-purple-500/20 to-pink-500/20">
+                            <div className="flex justify-center mb-4 md:mb-6">
+                                <div className="flex items-center gap-2 glass px-3 md:px-4 py-2 rounded-full border border-purple-500/30 bg-gradient-to-r from-purple-500/20 to-pink-500/20">
                                     <Sparkles className="w-4 h-4 text-purple-400" />
-                                    <span className="text-sm font-semibold text-purple-300 uppercase tracking-wider">
+                                    <span className="text-xs md:text-sm font-semibold text-purple-300 uppercase tracking-wider">
                                         Limited Time Offer
                                     </span>
                                 </div>
                             </div>
 
-                            <h3 className="font-display text-2xl md:text-3xl font-bold mb-4">
+                            <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4">
                                 Join <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">500+</span> Smart Developers Who{" "}
                                 <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Started Free</span>
                             </h3>
 
-                            <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
+                            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-6 md:mb-8">
                                 Don't miss out on this opportunity to experience our world-class training.
                                 Get instant access to premium resources worth ₹8,497 — absolutely free.
                             </p>
 
-                            {/* Main CTA Button */}
+                            {/* Main CTA Button - Mobile Optimized */}
                             <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="mb-6"
+                                className="mb-4 md:mb-6"
                             >
                                 <Button
                                     variant="aurora"
                                     size="lg"
-                                    className="px-12 py-4 text-lg font-bold shadow-2xl shadow-green-500/25 relative overflow-hidden group"
+                                    className="w-full sm:w-auto px-6 md:px-12 py-3 md:py-4 text-sm md:text-lg font-bold shadow-2xl shadow-green-500/25 relative overflow-hidden group"
                                     onClick={handleGetFreeAccess}
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-                                    <Download className="w-6 h-6 mr-3" />
-                                    Claim Your Free Resources Now
-                                    <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+
+                                    {/* Mobile Layout */}
+                                    <div className="flex items-center justify-center gap-2 md:gap-3">
+                                        <Download className="w-4 h-4 md:w-6 md:h-6 flex-shrink-0" />
+                                        <span className="text-xs sm:text-sm md:text-lg font-bold truncate">
+                                            <span className="hidden sm:inline">Claim Your Free Resources Now</span>
+                                            <span className="sm:hidden">Get Free Resources</span>
+                                        </span>
+                                        <ArrowRight className="w-4 h-4 md:w-6 md:h-6 flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
+                                    </div>
                                 </Button>
                             </motion.div>
 
                             {/* Trust indicators */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
                                 {[
                                     {
                                         icon: Users,
@@ -306,14 +313,14 @@ export function FreeTrial() {
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="text-center p-4 rounded-xl glass backdrop-blur-md bg-white/5 border border-border/30 hover:border-purple-500/30 transition-all duration-300 group"
+                                        className="text-center p-3 md:p-4 rounded-xl glass backdrop-blur-md bg-white/5 border border-border/30 hover:border-purple-500/30 transition-all duration-300 group"
                                     >
-                                        <div className="flex justify-center mb-3">
+                                        <div className="flex justify-center mb-2 md:mb-3">
                                             <div className={`p-2 rounded-lg bg-gradient-to-r ${trust.gradient} shadow-lg group-hover:shadow-xl transition-all duration-300`}>
-                                                <trust.icon className="w-4 h-4 text-white" />
+                                                <trust.icon className="w-3 h-3 md:w-4 md:h-4 text-white" />
                                             </div>
                                         </div>
-                                        <h4 className="font-semibold text-foreground mb-1 text-sm">{trust.text}</h4>
+                                        <h4 className="font-semibold text-foreground mb-1 text-xs md:text-sm">{trust.text}</h4>
                                         <p className="text-xs text-muted-foreground">{trust.description}</p>
                                     </motion.div>
                                 ))}
@@ -324,11 +331,11 @@ export function FreeTrial() {
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 transition={{ delay: 0.8 }}
-                                className="mt-6 p-4 rounded-lg bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20"
+                                className="mt-4 md:mt-6 p-3 md:p-4 rounded-lg bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20"
                             >
-                                <div className="flex items-center justify-center gap-2 text-sm">
-                                    <Target className="w-4 h-4 text-orange-400" />
-                                    <span className="text-orange-300 font-medium">
+                                <div className="flex items-center justify-center gap-2 text-xs md:text-sm">
+                                    <Target className="w-3 h-3 md:w-4 md:h-4 text-orange-400 flex-shrink-0" />
+                                    <span className="text-orange-300 font-medium text-center">
                                         🔥 Limited spots available for the next batch - Secure yours now!
                                     </span>
                                 </div>
